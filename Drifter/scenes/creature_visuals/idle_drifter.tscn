@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://pnpdvn8hegsw"]
+
+[ext_resource type="Texture2D" uid="uid://dx7x551l8tnmy" path="res://Drifter/images/character/idle_drifter.png" id="1_cqxk3"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Visuals" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(9, 9)
+texture = ExtResource("1_cqxk3")
+offset = Vector2(2.97, 0)
+
+[node name="Bounds" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -127.0
+offset_top = -312.0
+offset_right = 129.0
+offset_bottom = -6.0
+
+[node name="IntentPosition" type="Marker2D" parent="."]
+position = Vector2(7.6293945e-06, -347)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+position = Vector2(1.0000076, -157)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3p4ntlpesm05"]
+
+[ext_resource type="Texture2D" uid="uid://f7owcrxfurgi" path="res://Drifter/images/charui/ammo256.png" id="1_hkeb5"]
+[ext_resource type="Script" uid="uid://66ehfe4g77w2" path="res://DrifterCode/Nodes/Resources/NChargeCounter.cs" id="1_rng1v"]
+
+[node name="ChargeCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 78.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = 58.0
+script = ExtResource("1_rng1v")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 96.0
+texture = ExtResource("1_hkeb5")
+expand_mode = 1
+stretch_mode = 5

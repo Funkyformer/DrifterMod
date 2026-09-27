@@ -1,0 +1,16 @@
+{
+  "DRIFTER-DRIFTER.aromaPrinciple": "Lore",
+  "DRIFTER-DRIFTER.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "DRIFTER-DRIFTER.banter.dead.endTurnPing": "...",
+  "DRIFTER-DRIFTER.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "DRIFTER-DRIFTER.cardsModifierTitle": "__ Cards",
+  "DRIFTER-DRIFTER.description": "Character Selection\nScreen Description",
+  "DRIFTER-DRIFTER.eventDeathPrevention": "Co-op survival line",
+  "DRIFTER-DRIFTER.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "DRIFTER-DRIFTER.possessiveAdjective": "his/her/its",
+  "DRIFTER-DRIFTER.pronounObject": "him/her/it",
+  "DRIFTER-DRIFTER.pronounPossessive": "his/hers/its",
+  "DRIFTER-DRIFTER.pronounSubject": "he/she/it",
+  "DRIFTER-DRIFTER.title": "The Drifter",
+  "DRIFTER-DRIFTER.titleObject": "The Drifter"
+}

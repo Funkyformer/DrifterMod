@@ -1,0 +1,20 @@
+{
+  "DRIFTER-ALTIES_SY_COM.description": "Start each combat with [img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img].",
+  "DRIFTER-ALTIES_SY_COM.flavor": "Altie's so cool",
+  "DRIFTER-ALTIES_SY_COM.title": "AltiesSyCom",
+  "DRIFTER-DRIFTERS_SY_COM.description": "Start each combat with {Charge:chargeIcon()}.",
+  "DRIFTER-DRIFTERS_SY_COM.flavor": "Man I wish Breakers wasn't bad",
+  "DRIFTER-DRIFTERS_SY_COM.title": "Drifter's SyCom",
+  "DRIFTER-GEARBIT_CRATE.description": "After every [blue]4th[/blue] floor, [gold]Upgrade[/gold] a random card in your [gold]Deck[/gold].",
+  "DRIFTER-GEARBIT_CRATE.flavor": "Insert funny flavor text here",
+  "DRIFTER-GEARBIT_CRATE.title": "Gearbit Crate",
+  "DRIFTER-IMMORTAL_CELL.description": "Upon pickup, enchant a card that does not cost [img]res://Drifter/images/charui/ammo24.png[/img] with [purple]Hyper Light[/purple].",
+  "DRIFTER-IMMORTAL_CELL.flavor": "HARNESSING A GREAT WELLSPRING, A PERFECT IMMORTAL CELL WAS CRAFTED TO BE IMBUED WITHIN ALL SENTIENT LIFE",
+  "DRIFTER-IMMORTAL_CELL.title": "Immortal Cell",
+  "DRIFTER-MODULE_SET.description": "[gold]Gun[/gold] cards you generate have [purple]Glam[/purple].",
+  "DRIFTER-MODULE_SET.flavor": "Did you know you actually need 8 to open all doors, not 4?",
+  "DRIFTER-MODULE_SET.title": "Module Set",
+  "DRIFTER-PINKS_HELMET.description": "After you spend at least [img]res://Drifter/images/charui/ammo24.png[/img] on a [gold]Modular[/gold] card, its effects trigger an additional time.",
+  "DRIFTER-PINKS_HELMET.flavor": "Poor guy deserved better :(",
+  "DRIFTER-PINKS_HELMET.title": "Pink's Helmet"
+}

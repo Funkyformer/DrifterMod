@@ -1,0 +1,231 @@
+[gd_scene load_steps=19 format=3 uid="uid://cjoab8nnqve45"]
+
+[ext_resource type="Texture2D" uid="uid://h3ohqndb8b5s" path="res://Drifter/images/character/sword_anim.png" id="1_ghcfo"]
+[ext_resource type="Texture2D" uid="uid://dx7x551l8tnmy" path="res://Drifter/images/character/idle_drifter.png" id="1_xtm5t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quooe"]
+atlas = ExtResource("1_ghcfo")
+region = Rect2(0, 0, 113, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5k31"]
+atlas = ExtResource("1_ghcfo")
+region = Rect2(113, 0, 113, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eq8u"]
+atlas = ExtResource("1_ghcfo")
+region = Rect2(226, 0, 113, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d837m"]
+atlas = ExtResource("1_ghcfo")
+region = Rect2(339, 0, 113, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcg8b"]
+atlas = ExtResource("1_ghcfo")
+region = Rect2(452, 0, 113, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tkjjp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quooe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5k31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eq8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d837m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcg8b")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xtm5t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_b1e44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pjvmi"]
+resource_name = "attack"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16.5, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_13k4v"]
+resource_name = "idle"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oce7k"]
+_data = {
+&"RESET": SubResource("Animation_b1e44"),
+&"attack": SubResource("Animation_pjvmi"),
+&"idle": SubResource("Animation_13k4v")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ghcfo"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_quooe"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q5k31"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5eq8u"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d837m"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fcg8b"]
+states/attack/node = SubResource("AnimationNodeAnimation_ghcfo")
+states/attack/position = Vector2(345, -66)
+states/idle/node = SubResource("AnimationNodeAnimation_quooe")
+states/idle/position = Vector2(475, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_q5k31"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_5eq8u"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_d837m")]
+graph_offset = Vector2(-316, -119)
+
+[node name="Root" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Bounds" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -127.0
+offset_top = -312.0
+offset_right = 129.0
+offset_bottom = -6.0
+
+[node name="IntentPosition" type="Marker2D" parent="."]
+position = Vector2(7.6293945e-06, -347)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+position = Vector2(1.0000076, -157)
+
+[node name="Visuals" type="AnimatedSprite2D" parent="."]
+scale = Vector2(9, 9)
+sprite_frames = SubResource("SpriteFrames_tkjjp")
+animation = &"attack"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
+libraries = {
+&"": SubResource("AnimationLibrary_oce7k")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Visuals"]
+tree_root = SubResource("AnimationNodeStateMachine_fcg8b")
+anim_player = NodePath("../AnimationPlayer")

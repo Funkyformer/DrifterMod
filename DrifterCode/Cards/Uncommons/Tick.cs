@@ -1,0 +1,32 @@
+﻿using BaseLib.Extensions;
+using BaseLib.Utils;
+using Drifter.DrifterCode.Cards;
+using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Powers;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+
+namespace Drifter.DrifterCode.Cards.Uncommons;
+
+public class Tick() : DrifterCard(2, CardType.Power,
+    CardRarity.Uncommon, TargetType.Self)
+{
+    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+
+    protected override async Task OnPlay(
+        PlayerChoiceContext choiceContext,
+        CardPlay play)
+    {
+        await PowerCmd.Apply<TickPower>(choiceContext, Owner.Creature, DynamicVars.Power<TickPower>().BaseValue,
+            Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
+    }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
+}
