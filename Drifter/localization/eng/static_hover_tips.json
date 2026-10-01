@@ -1,6 +1,8 @@
 {
   "DRIFTER-BARRAGE.description" : "After every [blue]{Barrage}[/blue] times this card's [gold]Modular[/gold] effects occur, trigger its Barrage effect.",
   "DRIFTER-BARRAGE.title": "Barrage",
+  "Charge.description" : "Your current Charge ([img]res://Drifter/images/charui/ammo24.png[/img]) count. The Drifter's cards may require [img]res://Drifter/images/charui/ammo24.png[/img] to play.",
+  "Charge.title" : "Charge",
   "DRIFTER-JUDGMENT.description" : "When you play this, shuffle {Judgment:cond:>1?[blue]{Judgment}[/blue]|a} [gold]Wracking Cough{Judgment:cond:>1?s|}[/gold] randomly into your [gold]Hand[/gold], [gold]Draw Pile[/gold], or [gold]Discard Pile[/gold].",
   "DRIFTER-JUDGMENT.title": "Judgment",
   "DRIFTER-MODULAR.description" : "For every [blue]{Modular:chargeIcon()}[/blue] spent on this, trigger its Modular effect.",

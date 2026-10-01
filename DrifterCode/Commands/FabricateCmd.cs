@@ -1,6 +1,7 @@
 ﻿using BaseLib.Abstracts;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.CombatHistoryEntries;
 using Drifter.DrifterCode.Hooks;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
@@ -22,9 +23,10 @@ public static class FabricateCmd
             ModelDb.CardPool<DrifterCardPool>().GetUnlockedCards(
                     recipient.UnlockState, 
                     recipient.RunState.CardMultiplayerConstraint).
-                Where(
-                    c => c.Keywords.Contains(DrifterEnums.Gun)), 
-            1, recipient.RunState.Rng.CombatCardGeneration).FirstOrDefault();
+                Where(c =>
+                    c.Keywords.Contains(DrifterEnums.Gun)),
+                    1, 
+                    recipient.RunState.Rng.CombatCardGeneration).FirstOrDefault();
         if (card != null)
         {
             CardCmd.ApplyKeyword(card, CardKeyword.Ethereal);
@@ -33,6 +35,15 @@ public static class FabricateCmd
             CardCmd.ApplyKeyword(card, DrifterEnums.Fabricated);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, creator);
             await DrifterHooks.AfterFabricate(combatState, choiceContext, creator, recipient, card);
+            CombatManager.Instance.History.Add(
+                combatState, 
+                new FabricateEntry(
+                    creator.Creature, 
+                    card, 
+                    combatState.RoundNumber,
+                    creator.Creature.Side, 
+                    CombatManager.Instance.History, 
+                    combatState.Players));
         }
     }
 }

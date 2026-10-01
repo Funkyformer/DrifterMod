@@ -3,6 +3,7 @@ using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Hooks;
 
 namespace Drifter.DrifterCode.Extensions;
 
@@ -25,6 +26,6 @@ public static class CardPlayExtensions
 
     public static bool ValidGun(this CardPlay card, bool requireSpent = false)
     {
-        return card.Card.Keywords.Contains(DrifterEnums.Gun) && (!requireSpent || requireSpent &&(!CustomResources<ChargeResource>.Cost(card.Card).CostsX || CustomResources<ChargeResource>.AmountSpent(card) >= 1));
+        return card.Card.Keywords.Contains(DrifterEnums.Gun) && (!requireSpent || requireSpent &&(CustomResources<ChargeResource>.Cost(card.Card) is null || !CustomResources<ChargeResource>.Cost(card.Card).CostsX || CustomResources<ChargeResource>.AmountSpent(card) >= 1));
     }
 }

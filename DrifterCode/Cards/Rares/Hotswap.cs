@@ -5,10 +5,10 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
-namespace Drifter.DrifterCode.Cards.Uncommons;
+namespace Drifter.DrifterCode.Cards.Rares;
 
-public class Hotswap() : DrifterCard(2,
-    CardType.Power, CardRarity.Uncommon,
+public class Hotswap() : DrifterCard(1,
+    CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new (nameof(Hotswap), 1)];
@@ -22,7 +22,7 @@ public class Hotswap() : DrifterCard(2,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Ethereal), HoverTipFactory.FromKeyword(DrifterEnums.Gun), HoverTipFactory.FromKeyword(DrifterEnums.Fabricate)];
 }

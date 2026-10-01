@@ -27,7 +27,7 @@ public class TickPower() : DrifterPower
         for (int i = 0; i < Amount; i++)
         {
             foreach (Creature hittableEnemy in CombatState.HittableEnemies.Where(
-                         c => c.HasPower<ExplosivePower>()))
+                c => c.GetPowerInstances<ExplosivePower>().Any(p => p.Applier == Owner)))
             {
                 IEnumerable<DamageResult> damage = await CreatureCmd.Damage(choiceContext, hittableEnemy, DynamicVars.Damage, Owner,
                     null, null);

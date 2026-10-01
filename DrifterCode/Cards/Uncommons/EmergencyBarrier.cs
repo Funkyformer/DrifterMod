@@ -1,5 +1,6 @@
 ﻿using BaseLib.Abstracts;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,7 +13,7 @@ public class EmergencyBarrier() : DrifterCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(0), new CalculationExtraVar(1), new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, target) => CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(0), new CalculationExtraVar(0.5m), new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, target) => CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -26,6 +27,6 @@ public class EmergencyBarrier() : DrifterCard(0,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationExtra.UpgradeValueBy(1);
+        DynamicVars.CalculationExtra.UpgradeValueBy(0.5m);
     }
 }

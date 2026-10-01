@@ -14,7 +14,7 @@ namespace Drifter.DrifterCode.Cards.Uncommons;
 public class Tick() : DrifterCard(2, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TickPower>(1)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -26,7 +26,7 @@ public class Tick() : DrifterCard(2, CardType.Power,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Power<TickPower>().UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }

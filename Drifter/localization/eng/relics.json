@@ -14,7 +14,7 @@
   "DRIFTER-MODULE_SET.description": "[gold]Gun[/gold] cards you generate have [purple]Glam[/purple].",
   "DRIFTER-MODULE_SET.flavor": "Did you know you actually need 8 to open all doors, not 4?",
   "DRIFTER-MODULE_SET.title": "Module Set",
-  "DRIFTER-PINKS_HELMET.description": "After you spend at least [img]res://Drifter/images/charui/ammo24.png[/img] on a [gold]Modular[/gold] card, its effects trigger an additional time.",
+  "DRIFTER-PINKS_HELMET.description": "After you spend [img]res://Drifter/images/charui/ammo24.png[/img] on a [gold]Modular[/gold] card, its effects trigger an additional time.",
   "DRIFTER-PINKS_HELMET.flavor": "Poor guy deserved better :(",
   "DRIFTER-PINKS_HELMET.title": "Pink's Helmet"
 }

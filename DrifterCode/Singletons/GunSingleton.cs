@@ -28,6 +28,8 @@ public class GunSingleton() : CustomSingletonModel(HookType.Combat)
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (!cardPlay.Card.Keywords.Contains(DrifterEnums.Gun))
+            return;
         await WeavingUtils.Add(choiceContext, cardPlay, WeaveEnum.Gun);
     }
 }

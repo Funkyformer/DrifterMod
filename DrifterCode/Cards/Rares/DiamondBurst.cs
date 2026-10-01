@@ -25,7 +25,7 @@ public class DiamondBurst : DrifterCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, (int)DynamicVars.Repeat.BaseValue).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

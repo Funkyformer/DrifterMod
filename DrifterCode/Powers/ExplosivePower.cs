@@ -36,18 +36,27 @@ public class ExplosivePower() : DrifterPower
         Creature? dealer, CardModel? cardSource)
     {
         if (target != Owner || dealer != Applier)
-        {
             return;
-        }
 
-        if (cardSource is Primer)
+        // if (cardSource is Primer)
+        // {
+        //     var amount = cardSource.DynamicVars["ExplosiveRemoval"].BaseValue;
+        //     await PowerCmd.ModifyAmount(choiceContext, this, -Math.Min(amount + 1, Amount), cardSource.Owner.Creature, cardSource);
+        // }
+        // else
+        // {
+        //     await PowerCmd.Decrement(this);
+        // }
+
+        switch (cardSource)
         {
-            var amount = cardSource.DynamicVars["ExplosiveRemoval"].BaseValue;
-            await PowerCmd.ModifyAmount(choiceContext, this, -Math.Min(amount + 1, Amount), cardSource.Owner.Creature, cardSource);
-        }
-        else
-        {
-            await PowerCmd.Decrement(this);
+            case Primer:
+                var amount = cardSource.DynamicVars["ExplosiveRemoval"].BaseValue;
+                await PowerCmd.ModifyAmount(choiceContext, this, -Math.Min(amount + 1, Amount), cardSource.Owner.Creature, cardSource);
+                break;
+            default:
+                await PowerCmd.Decrement(this);
+                break;
         }
     }
 
@@ -63,5 +72,6 @@ public class ExplosivePower() : DrifterPower
         }
     }
 
-    public int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + _state.PlayerCreatures.Where(c => c.IsAlive).Sum(a => a.GetPowerAmount<VolatilePower>());
+    // public int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + _state.PlayerCreatures.Where(c => c.IsAlive).Sum(a => a.GetPowerAmount<VolatilePower>());
+    public int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + (Applier?.GetPowerAmount<VolatilePower>() ?? 0);
 }
