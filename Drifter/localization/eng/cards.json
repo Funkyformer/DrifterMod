@@ -62,7 +62,9 @@
   "DRIFTER-OVERSTRESS.title": "Overstress",
   "DRIFTER-PIERCE.description": "[color=#CC0066]Judgment[/color] 1.\nDeal {Damage:diff()} damage.",
   "DRIFTER-PIERCE.title": "Pierce",
-  "DRIFTER-PISTOL_SHOT.description": "Deal {Damage:diff()} damage.",
+  "DRIFTER-PISTOL_DEFLECT.description": "Gain {Block:diff()} [gold]Block[/gold].",
+  "DRIFTER-PISTOL_DEFLECT.title": "Pistol Deflect",
+  "DRIFTER-PISTOL_SHOT.description": "Deal {Damage:diff()} damage.\nIf this causes a [gold]Gun Weave[/gold], apply {WeakPower:diff()} [gold]Weak[/gold].",
   "DRIFTER-PISTOL_SHOT.title": "Pistol Shot",
   "DRIFTER-POSSESSION.description": "[color=#CC0066]Judgment[/color] 3.\nDeal {PossessionPower}% additional damage with Attacks for each [gold]Wracking Cough[/gold] in your [gold]Hand[/gold], [gold]Draw Pile[/gold], and [gold]Discard Pile[/gold].",
   "DRIFTER-POSSESSION.title": "Possession",
@@ -78,6 +80,8 @@
   "DRIFTER-RAILGUN_SNIPE.title": "Railgun Snipe",
   "DRIFTER-REPULSION.description": "Gain {Block:diff()} [gold]Block[/gold].\nThe next time you are attacked, apply {ExplosivePower:diff()} [gold]Explosive[/gold] to the attacker.",
   "DRIFTER-REPULSION.title": "Repulsion",
+  "DRIFTER-ROLL_WITH_IT.description": "Gain {Block:diff()} [gold]Block.\nThe first time you are attacked this turn, gain {Block:diff()} more.",
+  "DRIFTER-ROLL_WITH_IT.title": "Roll With It",
   "DRIFTER-SECRET_PATH.description": "At the end of combat, gain {Gold:diff()} [gold]Gold[/gold].",
   "DRIFTER-SECRET_PATH.title": "Secret Path",
   "DRIFTER-SHOTGUN_BLAST.description": "Deal {Damage:diff()} damage.",
@@ -111,6 +115,6 @@
   "DRIFTER-VOLATILE.title": "Volatile",
   "DRIFTER-WRACKING_COUGH.description": "At the end of your turn, if this is in your [gold]Hand[/gold], lose {MaxHp} Max HP.",
   "DRIFTER-WRACKING_COUGH.title": "Wracking Cough",
-  "DRIFTER-ZELISKA_SLUG.description": "Deal {Damage:diff()} damage.",
+  "DRIFTER-ZELISKA_SLUG.description": "Deal {Damage:diff()} damage.\nIf this causes a [gold]Gun Weave[/gold], apply {WeakPower:diff()} [gold]Weak[/gold] and {FrailPower:diff()} [gold]Frail[/gold].",
   "DRIFTER-ZELISKA_SLUG.title": "Zeliska Slug"
 }

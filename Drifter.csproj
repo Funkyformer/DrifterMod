@@ -74,6 +74,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="Changelogs\v0.1.1.md" />
       <Content Include="LICENSE" />
       <Content Include="project.godot" />
     </ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
-using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -12,24 +11,24 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Commons;
 
-public class TakeABreather() : DrifterCard(2,
+public class RollWithIt() : DrifterCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11, ValueProp.Move), new (nameof(TakeABreather), 1), new ChargeVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        (await PowerCmd.Apply<TakeABreatherPower>(choiceContext, Owner.Creature, DynamicVars[nameof(TakeABreather)].BaseValue, Owner.Creature, this)).IncrementCharge();
+        await PowerCmd.Apply<RollWithItPower>(choiceContext, Owner.Creature, DynamicVars.Block.BaseValue,
+            Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars.Block.UpgradeValueBy(2);
     }
-
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 }

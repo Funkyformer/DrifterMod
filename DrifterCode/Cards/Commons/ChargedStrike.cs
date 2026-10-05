@@ -16,7 +16,7 @@ public class ChargedStrike() : DrifterCard(2,
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
     public override HashSet<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(16, ValueProp.Move), new ChargeVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(14, ValueProp.Move), new ChargeVar(4)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -31,6 +31,6 @@ public class ChargedStrike() : DrifterCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6);
+        DynamicVars.Damage.UpgradeValueBy(4);
     }
 }

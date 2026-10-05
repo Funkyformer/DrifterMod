@@ -12,12 +12,12 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Drifter.DrifterCode.Cards.Undecideds;
+namespace Drifter.DrifterCode.Cards.Uncommons;
 
 public class FranticShots : DrifterCard
 {
     public FranticShots() : base(0,
-    CardType.Attack, CardRarity.Common,
+    CardType.Attack, CardRarity.Uncommon,
     TargetType.RandomEnemy) 
     { 
         CustomResources<ChargeResource>.SetXCost(this);

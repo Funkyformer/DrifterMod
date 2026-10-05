@@ -1,8 +1,7 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Abstracts;
+using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
-using Drifter.DrifterCode.DynamicVars;
-using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,23 +11,28 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Commons;
 
-public class TakeABreather() : DrifterCard(2,
-    CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+public class PistolDeflect : DrifterCard
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11, ValueProp.Move), new (nameof(TakeABreather), 1), new ChargeVar(2)];
+    public PistolDeflect() : base(0,
+        CardType.Skill, CardRarity.Common,
+        TargetType.Self)
+    {
+        CustomResources<ChargeResource>.SetCanonicalCost(this, 3);
+    }
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        (await PowerCmd.Apply<TakeABreatherPower>(choiceContext, Owner.Creature, DynamicVars[nameof(TakeABreather)].BaseValue, Owner.Creature, this)).IncrementCharge();
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4);
+        CustomResources<ChargeResource>.Cost(this).UpgradeCostBy(-1);
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];

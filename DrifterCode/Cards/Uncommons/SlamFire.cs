@@ -1,6 +1,4 @@
 ﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
-using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Hooks;
@@ -14,13 +12,13 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Drifter.DrifterCode.Cards.Undecideds;
+namespace Drifter.DrifterCode.Cards.Uncommons;
 
 public class SlamFire : DrifterCard
 {
 
     public SlamFire() : base(0, CardType.Attack,
-        CardRarity.Common, TargetType.AnyEnemy)
+        CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         // CustomResources<ChargeResource>
         //     .SetCanonicalCost(this, int.MinValue);
@@ -28,7 +26,7 @@ public class SlamFire : DrifterCard
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new BarrageVar(2), new PowerVar<VulnerablePower>(2), new DamageVar(9, ValueProp.Move), new ModularVar(8)];
+        [new BarrageVar(2), new PowerVar<VulnerablePower>(2), new DamageVar(9, ValueProp.Move), new ModularVar(7)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
 

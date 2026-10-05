@@ -23,7 +23,7 @@ public class Drifter : PlaceholderCharacterModel
     public override Color MapDrawingColor => Color;
     public override Color DialogueColor => Color;
     public override CharacterGender Gender => CharacterGender.Masculine;
-    public override int StartingHp => 68;
+    public override int StartingHp => 74;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
