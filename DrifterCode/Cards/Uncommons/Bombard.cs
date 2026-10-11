@@ -1,64 +1,58 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
-using Drifter.DrifterCode.Cards;
-using Drifter.DrifterCode.Character;
-using Drifter.DrifterCode.DynamicVars;
-using Drifter.DrifterCode.Hooks;
+﻿using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Drifter.DrifterCode.Cards.Uncommons;
 
-public class Bombard : DrifterCard
+public class Bombard() : ModularCard(0,
+    CardType.Skill, CardRarity.Uncommon,
+    TargetType.RandomEnemy, 6, 1)
 {
+    protected override IEnumerable<DynamicVar> BonusVars => [
+        new PowerVar<ExplosivePower>(6), 
+        new ("Bonus", 3),
+        new ("CurBonus", 0)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
-    public Bombard() : base(0, CardType.Skill,
-        CardRarity.Uncommon, TargetType.RandomEnemy)
+    protected override async Task ModularEffect(
+        PlayerChoiceContext choiceContext,
+        CardPlay play,
+        int repeats,
+        AttackContext? attackContext = null,
+        IEnumerable<DamageResult>? damageResults = null)
     {
-        CustomResources<ChargeResource>.SetXCost(this);
+        await CreatureCmd.TriggerAnim(Owner.Creature,
+            Owner.Character is DrifterCode.Character.Drifter ? "SpecialGrenade" : "Cast", 400);
+        Creature enemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
+        await PowerCmd.Apply<ExplosivePower>(new BlockingPlayerChoiceContext(), enemy,
+            DynamicVars["ExplosivePower"].BaseValue + DynamicVars["CurBonus"].BaseValue, Owner.Creature, this);
     }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new ModularVar(6), 
-        new BarrageVar(1),
-        new PowerVar<ExplosivePower>(6), 
-        new ("Bonus", 3)
-    ];
-
-
-    protected override async Task OnPlay(
-        PlayerChoiceContext context,
-        CardPlay play)
+    protected override Task BarrageEffect(
+        PlayerChoiceContext choiceContext,
+        CardPlay play,
+        int repeats,
+        AttackContext? attackContext = null,
+        IEnumerable<DamageResult>? damageResults = null)
     {
-        var numRepeats = (int)(CustomResources<ChargeResource>.Cost(this).ResolveXValue() /
-                               DynamicVars[ModularVar.Key].BaseValue);
-        decimal bonus = 0;
-        for (int i = 1; i <= numRepeats; i++)
-        {
-            await CreatureCmd.TriggerAnim(Owner.Creature, Owner.Character is Character.Drifter ? "SpecialGrenade" : "Cast" , 400);
+        DynamicVars["CurBonus"].BaseValue += DynamicVars["Bonus"].BaseValue;
+        return Task.CompletedTask;
+    }
 
-
-            Creature enemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
-
-            await PowerCmd.Apply<ExplosivePower>(context, enemy, DynamicVars["ExplosivePower"].BaseValue + bonus, Owner.Creature, this);
-            if (i % DynamicVars[BarrageVar.Key].BaseValue == 0)
-            {
-                bonus += DynamicVars["Bonus"].BaseValue;
-            }
-
-            await DrifterHooks.AfterBarrageRepeat(CombatState, context, this, i);
-        }
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Card == this)
+            DynamicVars["CurBonus"].BaseValue = 0;
+        return Task.CompletedTask;
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars[BarrageVar.Key].UpgradeValueBy(1);
     }
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }

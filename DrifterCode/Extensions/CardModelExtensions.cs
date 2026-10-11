@@ -29,4 +29,9 @@ public static class CardModelExtensions
         return card.Keywords.Contains(DrifterEnums.Gun) && 
                (!requireSpent || requireSpent && (!CustomResources<ChargeResource>.Cost(card).CostsX || (CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount) >= 1));
     }
+
+    public static bool ShouldGlowGreen(this CardModel card)
+    {
+        return card.Keywords.Contains(DrifterEnums.Blade) && card.Owner.PlayerCombatState != null && DrifterSpireFields.Plinking.Get(card.Owner.PlayerCombatState);
+    }
 }

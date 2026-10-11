@@ -11,7 +11,4 @@ public class DrifterEnums
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)] public static CardKeyword Fabricate;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)] public static CardKeyword Fabricated;
     [CustomEnum] public static StaticHoverTip Weaving;
-    // [CustomEnum] public static StaticHoverTip Modular;
-    // [CustomEnum] public static int BladeWeave;
-    // [CustomEnum] public static int GunWeave;
 }

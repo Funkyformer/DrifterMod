@@ -1,63 +1,51 @@
-﻿using BaseLib.Abstracts;
+﻿using BaseLib.Utils;
+using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.DynamicVars;
-using Drifter.DrifterCode.Hooks;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Uncommons;
 
-public class Stunlock : DrifterCard
+public class Stunlock() : ModularCard(0,
+    CardType.Attack, CardRarity.Uncommon,
+    TargetType.AnyEnemy, 3, 3)
 {
-    public Stunlock() : base(0, CardType.Attack,
-        CardRarity.Uncommon, TargetType.AnyEnemy)
-    {
-        CustomResources<ChargeResource>.SetXCost(this);
-    }
-
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new BarrageVar(3), new ("StrengthLoss", 1), new DamageVar(2, ValueProp.Move), new ModularVar(3)];
-
+    protected override IEnumerable<DynamicVar> BonusVars => [new DamageVar(2, ValueProp.Move), new DynamicVar("StrengthLoss", 1)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
 
-    protected override async Task OnPlay(
-        PlayerChoiceContext context,
-        CardPlay play)
+    protected override async Task ModularEffect(
+        PlayerChoiceContext choiceContext,
+        CardPlay play,
+        int repeats,
+        AttackContext? attackContext = null,
+        IEnumerable<DamageResult>? damageResults = null)
     {
-        AttackContext attackContext =
-            await AttackCommand.CreateContextAsync(CombatState, context, play);
-        IEnumerable<DamageResult> damageResults;
-        var numRepeats = (int)(CustomResources<ChargeResource>.Cost(this).ResolveXValue() /
-                               DynamicVars[ModularVar.Key].BaseValue);
-        for (int i = 1; i <= numRepeats; i++)
-        {
-            await CreatureCmd.TriggerAnim(Owner.Creature, "attack", 200);
-            damageResults = await CreatureCmd.Damage(context, play.Target, DynamicVars.Damage, Owner.Creature, this, play);
-            attackContext.AddHit(damageResults);
-            if (i % DynamicVars[BarrageVar.Key].BaseValue == 0)
-            {
-                await PowerCmd.Apply<StunlockPower>(context, play.Target, DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
-            }
-            await DrifterHooks.AfterBarrageRepeat(CombatState, context, this, i);
-        }
+        await CreatureCmd.TriggerAnim(Owner.Creature, "attack", 200);
+        damageResults =
+            await CreatureCmd.Damage(choiceContext, play.Target, DynamicVars.Damage, Owner.Creature, this, play);
+        attackContext.AddHit(damageResults);
+    }
 
-        if (attackContext != null) await attackContext.DisposeAsync();
-        attackContext = null;
-        
+    protected override async Task BarrageEffect(
+        PlayerChoiceContext choiceContext,
+        CardPlay play,
+        int repeats,
+        AttackContext? attackContext = null,
+        IEnumerable<DamageResult>? damageResults = null)
+    {
+        await PowerCmd.Apply<StunlockPower>(choiceContext, play.Target, DynamicVars["StrengthLoss"].BaseValue,
+            Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars[ModularVar.Key].UpgradeValueBy(-1);
-        // CustomResources<ChargeResource>.Cost(this)!.UpgradeCostBy(-1);
     }
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 }
