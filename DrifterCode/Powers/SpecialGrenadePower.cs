@@ -50,9 +50,5 @@ public class SpecialGrenadePower() : DrifterPower, IAfterSpendResource<ChargeRes
             return;
         }
         await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), this, -amount, Owner.Player.Creature, null);
-        // for (int i = 0; i < amount; i++)
-        // {
-        //     await PowerCmd.Decrement(this);
-        // }
     }
 }

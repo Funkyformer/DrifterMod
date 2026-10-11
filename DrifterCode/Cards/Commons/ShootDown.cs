@@ -11,9 +11,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Commons;
 
-public class PistolDeflect : DrifterCard
+public class ShootDown : DrifterCard
 {
-    public PistolDeflect() : base(0,
+    public ShootDown() : base(0,
         CardType.Skill, CardRarity.Common,
         TargetType.Self)
     {
