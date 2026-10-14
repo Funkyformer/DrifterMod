@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.CombatHistoryEntries;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -25,5 +26,13 @@ public class WrackingCough() : DrifterCard(-1,
     protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
     {
         await CreatureCmd.LoseMaxHp(choiceContext, Owner.Creature, DynamicVars.MaxHp.BaseValue, true);
+        CombatManager.Instance.History.Add(
+            CombatState,
+            new JudgmentEntry(
+                Owner.Creature,
+                CombatState.RoundNumber,
+                Owner.Creature.Side,
+                CombatManager.Instance.History,
+                CombatState.Players));
     }
 }

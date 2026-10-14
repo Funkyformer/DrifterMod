@@ -18,7 +18,7 @@ public static class FabricateCmd
 {
     public static async Task Fabricate(ICombatState combatState, PlayerChoiceContext choiceContext, Player creator, Player recipient)
     {
-        CardModel card = CardFactory.GetDistinctForCombat(
+        CardModel? card = CardFactory.GetDistinctForCombat(
             recipient, 
             ModelDb.CardPool<DrifterCardPool>().GetUnlockedCards(
                     recipient.UnlockState, 
@@ -29,9 +29,7 @@ public static class FabricateCmd
                     recipient.RunState.Rng.CombatCardGeneration).FirstOrDefault();
         if (card != null)
         {
-            CardCmd.ApplyKeyword(card, CardKeyword.Ethereal);
             CustomResources<ChargeResource>.SetToFreeThisTurn(card);
-            // card.Tags.Append(DrifterCardTags.Fabricated);
             CardCmd.ApplyKeyword(card, DrifterEnums.Fabricated);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, creator);
             await DrifterHooks.AfterFabricate(combatState, choiceContext, creator, recipient, card);

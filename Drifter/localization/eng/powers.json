@@ -33,7 +33,7 @@
   "DRIFTER-OVERFLOW_POWER.smartDescription": "Whenever you [gold]Weave[/gold], gain {charge:chargeIcon()} next turn.",
   "DRIFTER-OVERFLOW_POWER.title": "Overflow",
   "DRIFTER-OVERSTRESS_POWER.description": "",
-  "DRIFTER-OVERSTRESS_POWER.smartDescription": "The next {Amount:plural:|[blue]{Amount}[/blue] }[gold]Gun[/gold] card{Amount:plural:|s} without [gold]Replay[/gold] you play gain{Amount:plural:s|} [gold]Ethereal[/gold] and [gold]Replay[/gold] 1.",
+  "DRIFTER-OVERSTRESS_POWER.smartDescription": "The next {Amount:plural:|[blue]{Amount}[/blue] }[gold]Gun[/gold] card{Amount:plural:|s} without [gold]Replay[/gold] you play gain{Amount:plural:s|} [gold]Fabricated[/gold] and [gold]Replay[/gold] 1.",
   "DRIFTER-OVERSTRESS_POWER.title": "Overstress",
   "DRIFTER-POSSESSION_POWER.description": "Deal 50% more damage with attacks. Take 10 damage at the end of your turn.",
   "DRIFTER-POSSESSION_POWER.smartDescription": "Deal [blue]{Amount}%[/blue] additional damage with Attacks for each [gold]Wracking Cough[/gold] in your [gold]Hand[/gold], [gold]Draw Pile[/gold], and [gold]Discard Pile[/gold]. (Currently [blue]{Judgment}%[/blue])",

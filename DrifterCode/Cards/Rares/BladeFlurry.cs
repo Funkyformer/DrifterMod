@@ -25,6 +25,8 @@ public class BladeFlurry() : DrifterCard(2,
                     && hist.CardPlay.Card == card),2))
     ];
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
+
     public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
         CardLocation cardLocation)
     {

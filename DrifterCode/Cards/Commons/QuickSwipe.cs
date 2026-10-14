@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Extensions;
 using Drifter.DrifterCode.Hooks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -18,12 +19,15 @@ public class QuickSwipe() : DrifterCard(0,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new CardsVar(1)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
+    protected override bool ShouldGlowGoldInternal => this.WillWeave(WeaveEnum.Blade);
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        if (play.WillWeave(WeaveEnum.Blade))
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, play.Player);
     }
 
     protected override void OnUpgrade()

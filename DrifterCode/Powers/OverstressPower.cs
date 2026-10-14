@@ -1,4 +1,5 @@
-﻿using Drifter.DrifterCode.Extensions;
+﻿using Drifter.DrifterCode.Cards;
+using Drifter.DrifterCode.Extensions;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -30,7 +31,7 @@ public class OverstressPower() : DrifterPower
     {
         if (cardPlay.Player == Owner.Player && cardPlay.ValidGun() && cardPlay.Card.BaseReplayCount == 0)
         {
-            CardCmd.ApplyKeyword(cardPlay.Card, CardKeyword.Ethereal);
+            CardCmd.ApplyKeyword(cardPlay.Card, DrifterEnums.Fabricated);
             cardPlay.Card.BaseReplayCount += DynamicVars["Replay"].IntValue;
             await PowerCmd.Decrement(this);
         }

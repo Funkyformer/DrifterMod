@@ -19,7 +19,7 @@ public class Shrapnel : DrifterCard
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.SemiAuto, DrifterEnums.Gun];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

@@ -18,7 +18,7 @@ public class ShotgunBlast : DrifterCard
         CustomResources<ChargeResource>.SetCanonicalCost(this, 6);
     }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun, DrifterEnums.SemiAuto];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move)];
 
     protected override async Task OnPlay(

@@ -10,10 +10,10 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Drifter.DrifterCode.Cards.Commons;
+namespace Drifter.DrifterCode.Cards.Uncommons;
 
 public class TakeABreather() : DrifterCard(2,
-    CardType.Skill, CardRarity.Common,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11, ValueProp.Move), new (nameof(TakeABreather), 1), new ChargeVar(2)];
@@ -23,7 +23,8 @@ public class TakeABreather() : DrifterCard(2,
         CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        (await PowerCmd.Apply<TakeABreatherPower>(choiceContext, Owner.Creature, DynamicVars[nameof(TakeABreather)].BaseValue, Owner.Creature, this)).IncrementCharge();
+        var power = await PowerCmd.Apply<TakeABreatherPower>(choiceContext, Owner.Creature, DynamicVars[nameof(TakeABreather)].BaseValue, Owner.Creature, this);
+        power.IncrementCharge(DynamicVars[ChargeVar.Key].BaseValue);
     }
 
     protected override void OnUpgrade()

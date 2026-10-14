@@ -42,7 +42,7 @@ public class ChargeIconFormatter : IFormatter
         }
 
         string resource = "[img]res://Drifter/images/charui/ammo24.png[/img]";
-        if (amount > 0 && amount < 5) 
+        if (amount > 0 && amount < 4) 
             iconText = string.Concat(Enumerable.Repeat<string>(resource, amount));
         else if (formattingInfo.CurrentValue is DynamicVar currentValue)
             iconText = currentValue.ToHighlightedString(false) +resource;

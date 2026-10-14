@@ -23,7 +23,7 @@ public class TakeABreatherPower() : DrifterPower
 
     private const string _chKey = "Charge";
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(_chKey, 0)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new (_chKey, 0)];
 
     public override decimal ModifyHandDraw(Player player, decimal count)
     {
@@ -43,10 +43,9 @@ public class TakeABreatherPower() : DrifterPower
         await PowerCmd.Remove(this);
     }
 
-    public void IncrementCharge()
+    public void IncrementCharge(decimal count)
     {
-        this.AssertMutable();
-        ++DynamicVars[_chKey].BaseValue;
-        ++DynamicVars[_chKey].BaseValue;
+        AssertMutable();
+        DynamicVars[_chKey].BaseValue += count;
     }
 }

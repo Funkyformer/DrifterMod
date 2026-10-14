@@ -16,16 +16,6 @@ namespace Drifter.DrifterCode.Singletons;
 
 public class GunSingleton() : CustomSingletonModel(HookType.Combat)
 {
-    public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
-        CardLocation cardLocation)
-    {
-        if (cardLocation.pileType == PileType.Exhaust || !card.Keywords.Contains(DrifterEnums.Gun))
-        {
-            return cardLocation;
-        }
-        return new CardLocation(card.Owner, PileType.Hand, CardPilePosition.Bottom);
-    }
-
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (!cardPlay.Card.Keywords.Contains(DrifterEnums.Gun))

@@ -19,7 +19,7 @@ public class Pierce() : DrifterCard(1, CardType.Attack,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<WrackingCough>()];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new JudgmentVar(1), new DamageVar(15, ValueProp.Move)];
 
     protected override async Task OnPlay(

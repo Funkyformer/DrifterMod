@@ -14,31 +14,8 @@ public class JudgmentCmd
     {
         for (int i = 0; i < amount; i++)
         {
-            var rng = player.RunState.Rng.Shuffle.NextInt(3);
-            PileType pile;
-            CardPilePosition pos;
-            switch (rng)
-            {
-                case 0:
-                    pile = PileType.Hand;
-                    pos = CardPilePosition.Bottom;
-                    break;
-                case 1:
-                    pile = PileType.Discard;
-                    pos = CardPilePosition.Random;
-                    break;
-                case 2:
-                    pile = PileType.Draw;
-                    pos = CardPilePosition.Random;
-                    break;
-                default:
-                    pile = PileType.Hand;
-                    pos = CardPilePosition.Bottom;
-                    break;
-            }
-
-            var card = source.CombatState.CreateCard<WrackingCough>(player);
-            var res = await CardPileCmd.AddGeneratedCardToCombat(card, pile, player, pos);
+            var card = combatState.CreateCard<WrackingCough>(player);
+            var res = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, player, CardPilePosition.Top);
             CardCmd.PreviewCardPileAdd(res, 0.5f);
         }
     }

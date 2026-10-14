@@ -1,17 +1,19 @@
-﻿using Drifter.DrifterCode.DynamicVars;
+﻿using BaseLib.Extensions;
+using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Drifter.DrifterCode.Cards.Uncommons;
 
 public class Bombard() : ModularCard(0,
     CardType.Skill, CardRarity.Uncommon,
-    TargetType.RandomEnemy, 6, 1)
+    TargetType.RandomEnemy, 6)
 {
     protected override IEnumerable<DynamicVar> BonusVars => [
         new PowerVar<ExplosivePower>(6), 
@@ -27,7 +29,7 @@ public class Bombard() : ModularCard(0,
         IEnumerable<DamageResult>? damageResults = null)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature,
-            Owner.Character is DrifterCode.Character.Drifter ? "SpecialGrenade" : "Cast", 400);
+            Owner.Character is Character.Drifter ? "SpecialGrenade" : "Cast", 400);
         Creature enemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
         await PowerCmd.Apply<ExplosivePower>(new BlockingPlayerChoiceContext(), enemy,
             DynamicVars["ExplosivePower"].BaseValue + DynamicVars["CurBonus"].BaseValue, Owner.Creature, this);
@@ -53,6 +55,8 @@ public class Bombard() : ModularCard(0,
 
     protected override void OnUpgrade()
     {
-        DynamicVars[BarrageVar.Key].UpgradeValueBy(1);
+        DynamicVars["Bonus"].UpgradeValueBy(-1);
     }
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }

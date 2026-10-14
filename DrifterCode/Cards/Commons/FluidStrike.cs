@@ -24,13 +24,14 @@ public class FluidStrike() : DrifterCard(1,
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
+    protected override bool ShouldGlowGoldInternal => this.WillWeave(WeaveEnum.Blade);
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         _attackContext = await AttackCommand.CreateContextAsync(CombatState, choiceContext, play);
-        var repeats = play.IsWeave(WeaveEnum.Blade) ? 2 : 1;
+        var repeats = play.WillWeave(WeaveEnum.Blade) ? 2 : 1;
         while (repeats > 0)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "attack", 200);

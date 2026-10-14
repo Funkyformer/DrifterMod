@@ -15,7 +15,17 @@ public class HyperLight : CustomEnchantmentModel
 
     protected override void OnEnchant()
     {
-        Card.EnergyCost.SetCustomBaseCost(0);
-        CustomResources<ChargeResource>.SetCanonicalCost(Card, 3 * Card.EnergyCost.Canonical);
+        Card.EnergyCost.AddThisCombat(0);
+        CustomResources<ChargeResource>.SetCanonicalCost(Card, 3 * Card.EnergyCost.GetWithModifiers(CostModifiers.None));
+    }
+
+    public override void RecalculateValues()
+    {
+        if (HasCard)
+        {
+            var newCost = (int)Math.Floor((decimal)Card.EnergyCost.GetWithModifiers(CostModifiers.None)) * 3;
+            MainFile.Logger.Warn(newCost.ToString());
+            CustomResources<ChargeResource>.SetCanonicalCost(Card, newCost);
+        }
     }
 }

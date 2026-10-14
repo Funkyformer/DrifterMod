@@ -19,7 +19,7 @@ public class Obliterate() : DrifterCard(2, CardType.Attack,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<WrackingCough>()];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, DrifterEnums.Blade];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new JudgmentVar(2), new DamageVar(34, ValueProp.Move)];
 
     protected override async Task OnPlay(

@@ -31,5 +31,5 @@ public class Overstress() : DrifterCard(1,
         EnergyCost.UpgradeBy(-1);
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Ethereal), HoverTipFactory.Static(StaticHoverTip.ReplayStatic)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(DrifterEnums.Fabricated), HoverTipFactory.Static(StaticHoverTip.ReplayStatic)];
 }

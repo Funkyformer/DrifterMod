@@ -15,8 +15,18 @@ public static class CardPlayExtensions
             c.CardPlay.Player == cardPlay.Player && c.HappenedThisTurn(c.CardPlay.Card.CombatState));
         if (history.Count() <= 1) return false;
         var lastCard = history.SkipLast(1).Last().CardPlay;
-        return (weave == WeaveEnum.Blade && cardPlay.ValidBlade() && lastCard.ValidGun(true)) ||
-               (weave == WeaveEnum.Gun && cardPlay.ValidGun(true) && lastCard.ValidBlade());
+        return (weave == WeaveEnum.Blade && cardPlay.ValidBlade() && lastCard.ValidGun()) ||
+               (weave == WeaveEnum.Gun && cardPlay.ValidGun() && lastCard.ValidBlade());
+    }
+
+    public static bool WillWeave(this CardPlay cardPlay, WeaveEnum weave)
+    {
+        var history = CombatManager.Instance.History.CardPlaysFinished.Where(c =>
+            c.CardPlay.Player == cardPlay.Player && c.HappenedThisTurn(c.CardPlay.Card.CombatState));
+        if (history.Count() == 0) return false;
+        var lastCard = history.Last().CardPlay;
+        return (weave == WeaveEnum.Blade && cardPlay.ValidBlade() && lastCard.ValidGun()) ||
+               (weave == WeaveEnum.Gun && cardPlay.ValidGun() && lastCard.ValidBlade());
     }
 
     public static bool ValidBlade(this CardPlay card)
@@ -24,8 +34,8 @@ public static class CardPlayExtensions
         return card.Card.Keywords.Contains(DrifterEnums.Blade);
     }
 
-    public static bool ValidGun(this CardPlay card, bool requireSpent = false)
+    public static bool ValidGun(this CardPlay card)
     {
-        return card.Card.Keywords.Contains(DrifterEnums.Gun) && (!requireSpent || requireSpent &&(CustomResources<ChargeResource>.Cost(card.Card) is null || !CustomResources<ChargeResource>.Cost(card.Card).CostsX || CustomResources<ChargeResource>.AmountSpent(card) >= 1));
+        return card.Card.Keywords.Contains(DrifterEnums.Gun);
     }
 }

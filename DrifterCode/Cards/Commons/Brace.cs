@@ -21,7 +21,7 @@ public class Brace() : DrifterCard(1, CardType.Skill,
     {
         await CommonActions.CardBlock(this, play);
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-        CardModel card1 = (await CardSelectCmd.FromHand(
+        var card1 = (await CardSelectCmd.FromHand(
             choiceContext, 
             Owner, 
             prefs,

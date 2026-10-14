@@ -17,6 +17,7 @@ public class Detonator() : DrifterCard(1,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Blade];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

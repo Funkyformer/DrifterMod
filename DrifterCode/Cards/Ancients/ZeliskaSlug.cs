@@ -22,8 +22,10 @@ public class ZeliskaSlug : DrifterCard
         CustomResources<ChargeResource>.SetCanonicalCost(this, 3);
     }
 
+    protected override bool ShouldGlowGoldInternal => this.WillWeave(WeaveEnum.Gun);
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new PowerVar<WeakPower>(1), new PowerVar<FrailPower>(1)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun, DrifterEnums.SemiAuto];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -31,7 +33,7 @@ public class ZeliskaSlug : DrifterCard
     {
         ArgumentNullException.ThrowIfNull(play.Target);
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
-        if (!play.IsWeave(WeaveEnum.Gun))
+        if (!play.WillWeave(WeaveEnum.Gun))
             return;
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<FrailPower>(choiceContext, play.Target, DynamicVars["FrailPower"].BaseValue, Owner.Creature, this);

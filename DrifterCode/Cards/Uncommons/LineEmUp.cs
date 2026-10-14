@@ -19,7 +19,7 @@ public class LineEmUp : DrifterCard
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(6), new ExtraDamageVar(2), new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (card, target) => card.CombatState.HittableEnemies.Count)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun, DrifterEnums.SemiAuto];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

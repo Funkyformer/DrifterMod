@@ -19,7 +19,7 @@ public class DiamondBurst : DrifterCard
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new RepeatVar(4)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun, DrifterEnums.SemiAuto];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

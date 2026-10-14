@@ -16,8 +16,8 @@ public class CrackEmOpen() : ModularCard(0,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy, 9)
 {
-    protected override IEnumerable<DynamicVar> BonusVars => [new DamageVar(9, ValueProp.Move), new ("BonusDamage", 9)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
+    protected override IEnumerable<DynamicVar> BonusVars => [new DamageVar(8, ValueProp.Move), new ("BonusDamage", 8)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
 
     protected override async Task ModularEffect(
         PlayerChoiceContext choiceContext,
@@ -32,18 +32,9 @@ public class CrackEmOpen() : ModularCard(0,
         attackContext.AddHit(damageResults);
     }
 
-    protected override async Task BarrageEffect(
-        PlayerChoiceContext choiceContext,
-        CardPlay play,
-        int repeats,
-        AttackContext? attackContext = null,
-        IEnumerable<DamageResult>? damageResults = null)
-    {
-        
-    }
-
     protected override void OnUpgrade()
     {
-
+        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars["BonusDamage"].UpgradeValueBy(2);
     }
 }

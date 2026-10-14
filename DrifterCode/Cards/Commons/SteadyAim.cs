@@ -11,11 +11,11 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Drifter.DrifterCode.Cards.Commons;
 
-public class SteadyAim() : DrifterCard(0,
+public class SteadyAim() : DrifterCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VigorPower>(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VigorPower>(3), new CardsVar(1)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -23,6 +23,7 @@ public class SteadyAim() : DrifterCard(0,
     {
         await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars.Power<VigorPower>().BaseValue,
             Owner.Creature, this);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()

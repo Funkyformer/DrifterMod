@@ -24,9 +24,7 @@ public class BladeSingleton() : CustomSingletonModel(HookType.Combat)
         Creature target, 
         CardModel? cardSource)
     {
-        // return base.AfterDamageGiven(choiceContext, dealer, result, props, target, cardSource);
-        if (dealer is null || !dealer.IsPlayer || cardSource is null ||
-            !cardSource.Keywords.Contains(DrifterEnums.Blade))
+        if (dealer is null || !dealer.IsPlayer || cardSource is null || !cardSource.IsBlade())
             return;
         await CustomResources<ChargeResource>.Get(dealer.Player.PlayerCombatState)
             .Spend<ChargeResource>(dealer.CombatState, cardSource, -2, false);

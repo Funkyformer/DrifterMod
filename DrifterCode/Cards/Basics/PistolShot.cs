@@ -22,9 +22,10 @@ public class PistolShot : DrifterCard, ITranscendenceCard
     {
         CustomResources<ChargeResource>.SetCanonicalCost(this, 3);
     }
+    protected override bool ShouldGlowGoldInternal => this.WillWeave(WeaveEnum.Gun);
     public CardModel GetTranscendenceTransformedCard() => ModelDb.Card<ZeliskaSlug>();
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [DrifterEnums.Gun, DrifterEnums.SemiAuto];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3,ValueProp.Move), new PowerVar<WeakPower>(1)];
 
     protected override async Task OnPlay(
@@ -33,7 +34,7 @@ public class PistolShot : DrifterCard, ITranscendenceCard
     {
         ArgumentNullException.ThrowIfNull(play.Target);
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
-        if (!play.IsWeave(WeaveEnum.Gun))
+        if (!play.WillWeave(WeaveEnum.Gun))
             return;
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
         // await Cmd.Wait(0.25f);

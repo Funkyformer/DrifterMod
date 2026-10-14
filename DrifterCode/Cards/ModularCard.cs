@@ -1,4 +1,5 @@
 ﻿using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Hooks;
@@ -8,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Drifter.DrifterCode.Cards;
 
@@ -29,7 +31,22 @@ public abstract class ModularCard : DrifterCard
 
     protected virtual IEnumerable<DynamicVar> BonusVars => [];
     
-    protected sealed override IEnumerable<DynamicVar> CanonicalVars => [new ModularVar(_modular), new BarrageVar(_barrage), ..BonusVars];
+    protected sealed override IEnumerable<DynamicVar> CanonicalVars => [
+        new ModularVar(_modular), 
+        ..GetBarrageVar(), 
+        new ("HitsBase", 0),
+        new ("HitsExtra",1),
+        new CustomCalculatedVar("Hits").WithMultiplier((Func<CardModel, Creature, Decimal>)
+            ((card, target) => CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount / card.DynamicVars[ModularVar.Key].IntValue)),
+        ..BonusVars];
+
+    private IEnumerable<DynamicVar> GetBarrageVar()
+    {
+        if (_barrage > 0)
+        {
+            yield return new BarrageVar(_barrage);
+        }
+    }
 
     protected abstract Task ModularEffect(PlayerChoiceContext choiceContext, CardPlay play, int repeats, AttackContext? attackContext = null, IEnumerable<DamageResult>? damageResults = null);
 

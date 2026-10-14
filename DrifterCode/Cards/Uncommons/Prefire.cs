@@ -21,7 +21,7 @@ public class Prefire() : DrifterCard(0,
 
     public override async Task AfterAutoPrePlayPhaseEntered(PlayerChoiceContext choiceContext, Player player)
     {
-        if (Pile.Type != PileType.Hand) return;
+        if (Pile?.Type != PileType.Hand) return;
         await CardCmd.AutoPlay(choiceContext, this, null);
     }
 

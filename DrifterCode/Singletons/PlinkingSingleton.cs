@@ -16,12 +16,12 @@ public class PlinkingSingleton() : CustomSingletonModel(HookType.Combat)
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay card)
     {
         PlayerCombatState state = card.Card.Owner.PlayerCombatState;
-        if (!card.ValidGun(true) && !card.ValidBlade() && state != null)
+        if (!card.ValidGun() && !card.ValidBlade() && state != null)
         {
             return;
         }
         
-        if (card.ValidGun(true))
+        if (card.ValidGun())
         {
             DrifterSpireFields.Plinking.Set(state, true);
         }
