@@ -20,7 +20,7 @@ public class RollWithItPower() : DrifterPower
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props,
         Creature? dealer, CardModel? cardSource)
     {
-        if (props != ValueProp.Move || result.Receiver != Owner)
+        if (target != Owner || dealer == null || !props.IsPoweredAttack())
             return;
         await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         Flash();

@@ -24,8 +24,9 @@ public class RepulsionPower() : DrifterPower
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props,
         Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner || dealer == null || !dealer.IsMonster)
+        if (target != Owner || dealer == null || !props.IsPoweredAttack())
             return;
+        Flash();
         await PowerCmd.Apply<ExplosivePower>(choiceContext, dealer, DynamicVars.Power<ExplosivePower>().BaseValue, Owner, null);
         await PowerCmd.Decrement(this);
     }

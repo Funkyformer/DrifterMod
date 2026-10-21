@@ -29,7 +29,7 @@ public class OverstressPower() : DrifterPower
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Player == Owner.Player && cardPlay.ValidGun() && cardPlay.Card.BaseReplayCount == 0)
+        if (cardPlay.Player == Owner.Player && cardPlay.ValidGun())
         {
             CardCmd.ApplyKeyword(cardPlay.Card, DrifterEnums.Fabricated);
             cardPlay.Card.BaseReplayCount += DynamicVars["Replay"].IntValue;

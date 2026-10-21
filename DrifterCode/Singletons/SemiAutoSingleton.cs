@@ -10,7 +10,9 @@ public class SemiAutoSingleton() : CustomSingletonModel(HookType.Combat)
     public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
         CardLocation cardLocation)
     {
-        if (cardLocation.pileType == PileType.Exhaust || !card.Keywords.Contains(DrifterEnums.SemiAuto))
+        var permaZero = card.EnergyCost._localModifiers.Any(mod =>
+            mod is { Amount: 0, Type: LocalCostType.Absolute, Expiration: LocalCostModifierExpiration.EndOfCombat });
+        if (cardLocation.pileType == PileType.Exhaust || !card.Keywords.Contains(DrifterEnums.SemiAuto) || permaZero)
         {
             return cardLocation;
         }

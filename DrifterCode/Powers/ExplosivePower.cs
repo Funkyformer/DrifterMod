@@ -19,7 +19,7 @@ public class ExplosivePower() : DrifterPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    public ICombatState _state;
+    private ICombatState _state;
     
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
@@ -37,16 +37,6 @@ public class ExplosivePower() : DrifterPower
     {
         if (target != Owner || dealer != Applier)
             return;
-
-        // if (cardSource is Primer)
-        // {
-        //     var amount = cardSource.DynamicVars["ExplosiveRemoval"].BaseValue;
-        //     await PowerCmd.ModifyAmount(choiceContext, this, -Math.Min(amount + 1, Amount), cardSource.Owner.Creature, cardSource);
-        // }
-        // else
-        // {
-        //     await PowerCmd.Decrement(this);
-        // }
 
         switch (cardSource)
         {
@@ -72,6 +62,5 @@ public class ExplosivePower() : DrifterPower
         }
     }
 
-    // public int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + _state.PlayerCreatures.Where(c => c.IsAlive).Sum(a => a.GetPowerAmount<VolatilePower>());
-    public int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + (Applier?.GetPowerAmount<VolatilePower>() ?? 0);
+    private int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + (Applier?.GetPowerAmount<VolatilePower>() ?? 0);
 }

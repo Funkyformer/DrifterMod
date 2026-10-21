@@ -43,7 +43,7 @@ public partial class NChargeCounter : Control
 		// 	MainFile.Logger.Warn("Player combat state is null");
 		// 	return;
 		// }
-		// _label.Text = CustomResources<ChargeResource>.Get(_playerCombatState).Amount.ToString();
+		// _label.Text = CustomResources<ChargeResource>.Get(_playerCombatState).HPAmount.ToString();
 		if (_playerCombatState is null) return;
 		int amt = CustomResources<ChargeResource>.Get(_playerCombatState).Amount;
 		_label.AddThemeColorOverride("font_color", amt == 0 ? StsColors.red : StsColors.cream);
@@ -83,7 +83,7 @@ public partial class NChargeCounter : Control
 	// 	MainFile.Logger.Warn("AfterSpendResource has been called");
 	// 	if (_playerCombatState is not null)
 	// 	{
-	// 		int amt = CustomResources<ChargeResource>.Get(_playerCombatState).Amount;
+	// 		int amt = CustomResources<ChargeResource>.Get(_playerCombatState).HPAmount;
 	// 		_label.AddThemeColorOverride("font_color", amt == 0 ? StsColors.red : StsColors.cream);
 	// 		_label.AddThemeColorOverride("font_outline_color", amt == 0 ? StsColors.unplayableEnergyCostOutline : _outline);
 	// 		_label.Text = amt.ToString();

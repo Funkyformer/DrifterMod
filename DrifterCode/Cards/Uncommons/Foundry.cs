@@ -32,5 +32,5 @@ public class Foundry() : DrifterCard(1,
         EnergyCost.UpgradeBy(-1);
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(DrifterEnums.Fabricate)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(DrifterEnums.Fabricated)];
 }

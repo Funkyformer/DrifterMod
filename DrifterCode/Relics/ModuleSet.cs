@@ -13,13 +13,5 @@ public class ModuleSet() : DrifterRelic
     public override RelicRarity Rarity =>
         RelicRarity.Rare;
 
-    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
-    {
-        if (creator == null || creator.Creature != Owner.Creature || !card.Keywords.Contains(DrifterEnums.Gun))
-            return;
-        Flash();
-        CardCmd.Enchant<Glam>(card, 1);
-    }
-
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromEnchantment<Glam>();
 }

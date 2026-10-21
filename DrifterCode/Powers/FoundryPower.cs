@@ -29,5 +29,5 @@ public class FoundryPower() : DrifterPower
         return Owner != dealer || !props.IsPoweredAttack() || cardSource is null || !cardSource.Keywords.Contains(DrifterEnums.Fabricated) ? 0M : Amount;
     }
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(DrifterEnums.Fabricate)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(DrifterEnums.Fabricated)];
 }
