@@ -1,11 +1,13 @@
 ﻿using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
+using Drifter.DrifterCode.Cards.Statuses;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.Commands;
 using Drifter.DrifterCode.DynamicVars;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Drifter.DrifterCode.Cards.Uncommons;
@@ -15,6 +17,8 @@ public class Desperation() : DrifterCard(0,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new EnergyVar(1), new JudgmentVar(1)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<WrackingCough>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(

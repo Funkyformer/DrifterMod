@@ -1,5 +1,6 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Cards.Variables;
+using Drifter.DrifterCode.Cards.Statuses;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Hooks;
@@ -8,6 +9,7 @@ using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -19,7 +21,6 @@ public abstract class ModularCard : DrifterCard
     private readonly int _barrage;
     private readonly bool _doesDamage;
 
-    public override bool CanBeGeneratedInCombat => false;
 
     protected ModularCard(int cost, CardType type, CardRarity rarity, TargetType target, int modular, int barrage = 0, bool doesDamage = true) : base(cost, type, rarity, target)
     {
@@ -39,6 +40,7 @@ public abstract class ModularCard : DrifterCard
         new CustomCalculatedVar("Hits").WithMultiplier((Func<CardModel, Creature, Decimal>)
             ((card, target) => CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount / card.DynamicVars[ModularVar.Key].IntValue)),
         ..BonusVars];
+    
 
     private IEnumerable<DynamicVar> GetBarrageVar()
     {

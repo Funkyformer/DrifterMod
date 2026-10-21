@@ -1,12 +1,10 @@
 {
-  "DRIFTER-BLADE.description": "Generate [img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img] each time this deals damage.",
+  "DRIFTER-BLADE.description": "Generate [img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img] each time this deals damage.",
   "DRIFTER-BLADE.title": "Blade",
   "DRIFTER-GUN.description": "The next time you play a [gold]Blade[/gold] card, gain [img]res://Drifter/images/charui/ammo24.png[/img].",
   "DRIFTER-GUN.title": "Gun",
-  "DRIFTER-SEMIAUTO.description": "After playing this, return it to your [gold]Hand[/gold].",
+  "DRIFTER-SEMIAUTO.description": "After playing this, return it to your [gold]Hand[/gold].\nIf this card permanently costs 0, this does not occur.",
   "DRIFTER-SEMIAUTO.title": "Semi-Auto",
-  "DRIFTER-FABRICATE.description": "Add a random [gold]Gun[/gold] card to your hand. It gains [gold]Ethereal[/gold] and costs 0[img]res://Drifter/images/charui/ammo24.png[/img] until played.",
-  "DRIFTER-FABRICATE.title": "Fabricate",
   "DRIFTER-FABRICATED.description": "At the end of your turn, this card is [gold]Exhausted[/gold].",
   "DRIFTER-FABRICATED.title": "Fabricated"
 }

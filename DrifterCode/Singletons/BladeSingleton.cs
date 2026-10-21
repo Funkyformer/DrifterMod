@@ -27,7 +27,7 @@ public class BladeSingleton() : CustomSingletonModel(HookType.Combat)
         if (dealer is null || !dealer.IsPlayer || cardSource is null || !cardSource.IsBlade())
             return;
         await CustomResources<ChargeResource>.Get(dealer.Player.PlayerCombatState)
-            .Spend<ChargeResource>(dealer.CombatState, cardSource, -2, false);
+            .Spend<ChargeResource>(dealer.CombatState, cardSource, -3, false);
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

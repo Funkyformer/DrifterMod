@@ -16,7 +16,7 @@ public class FabricatedSingleton() : CustomSingletonModel(HookType.Combat)
             return;
         foreach (var creature in participants.Where(c => c.Player is not null))
         {
-            foreach (var card in creature.Player.PlayerCombatState.AllCards.Where(c => c.Pile.Type != PileType.Exhaust && c.Keywords.Contains(DrifterEnums.Fabricated)))
+            foreach (var card in creature.Player.PlayerCombatState.AllCards.Where(c => c.Pile.Type != PileType.Exhaust && c.Keywords.Contains(DrifterEnums.Fabricated)).ToList())
             {
                 await CardCmd.Exhaust(choiceContext, card);
             }
