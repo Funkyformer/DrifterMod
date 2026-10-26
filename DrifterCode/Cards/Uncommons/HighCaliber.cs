@@ -11,19 +11,19 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Drifter.DrifterCode.Cards.Uncommons;
 
-public class Foundry() : DrifterCard(1,
+public class HighCaliber() : DrifterCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
     
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FoundryPower>(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<HighCaliberPower>(2)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PowerCmd.Apply<FoundryPower>(choiceContext, Owner.Creature, DynamicVars.Power<FoundryPower>().BaseValue,
+        await PowerCmd.Apply<HighCaliberPower>(choiceContext, Owner.Creature, DynamicVars.Power<HighCaliberPower>().BaseValue,
             Owner.Creature, this);
     }
 

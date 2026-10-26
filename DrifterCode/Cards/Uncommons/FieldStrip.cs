@@ -16,18 +16,17 @@ public class FieldStrip() : DrifterCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ChargeVar(5)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ChargeVar(5), new CardsVar(1), new ("Exhaust", 1)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CardPileCmd.Draw(choiceContext, Owner);
-        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, (int)DynamicVars["Exhaust"].BaseValue);
         CardModel card = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this)).FirstOrDefault();
-        if (card == null)
-            return;
-        CardPileAddResult? nullable = await CardCmd.Exhaust(choiceContext, card);
+        if (card != null)
+            await CardCmd.Exhaust(choiceContext, card);
         await CustomResources<ChargeResource>.Get(Owner.PlayerCombatState)
             .Spend<ChargeResource>(CombatState, this, -DynamicVars[ChargeVar.Key].IntValue, false);
     }

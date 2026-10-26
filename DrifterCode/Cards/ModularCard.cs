@@ -72,7 +72,7 @@ public abstract class ModularCard : DrifterCard
             await ModularEffect(choiceContext, cardPlay, i - 1, attackContext, damageResults);
             if (i % DynamicVars[BarrageVar.Key].BaseValue == 0)
                 await BarrageEffect(choiceContext, cardPlay, i / DynamicVars[BarrageVar.Key].IntValue, attackContext, damageResults);
-            await DrifterHooks.AfterBarrageRepeat(CombatState, choiceContext, this, i);
+            await DrifterHooks.AfterModularRepeat(CombatState, choiceContext, Owner, this, i);
         }
     }
 }

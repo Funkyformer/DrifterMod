@@ -21,8 +21,8 @@ public class Possession() : DrifterCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new JudgmentVar(3), new PowerVar<PossessionPower>(25)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new JudgmentVar(3), new PowerVar<PossessionPower>(100)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -36,7 +36,7 @@ public class Possession() : DrifterCard(2,
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        DynamicVars.Power<PossessionPower>().UpgradeValueBy(50);
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<WrackingCough>()];

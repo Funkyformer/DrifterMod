@@ -11,7 +11,7 @@ public class  StickyBomb() : DrifterCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ("Explosive", 8)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ("Explosive", 7)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

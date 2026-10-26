@@ -3,7 +3,7 @@
   "DRIFTER-BLADE.title": "Blade",
   "DRIFTER-GUN.description": "The next time you play a [gold]Blade[/gold] card, gain [img]res://Drifter/images/charui/ammo24.png[/img].",
   "DRIFTER-GUN.title": "Gun",
-  "DRIFTER-SEMIAUTO.description": "After playing this, return it to your [gold]Hand[/gold].\nIf this card permanently costs 0, this does not occur.",
+  "DRIFTER-SEMIAUTO.description": "Return this card to your [gold]Hand[/gold].\nIf this card is free to play this combat, this does not occur.",
   "DRIFTER-SEMIAUTO.title": "Semi-Auto",
   "DRIFTER-FABRICATED.description": "At the end of your turn, this card is [gold]Exhausted[/gold].",
   "DRIFTER-FABRICATED.title": "Fabricated"

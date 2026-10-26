@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Drifter.DrifterCode.Cards.Commons;
+namespace Drifter.DrifterCode.Cards.Uncommons;
 
 public class ShootDown : DrifterCard
 {

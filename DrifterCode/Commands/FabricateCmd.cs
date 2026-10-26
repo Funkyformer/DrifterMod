@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 
@@ -19,7 +20,7 @@ namespace Drifter.DrifterCode.Commands;
 
 public static class FabricateCmd
 {
-    public static async Task Fabricate(ICombatState combatState, PlayerChoiceContext choiceContext, Player creator, Player recipient, FabricateVar? upgraded = null)
+    public static async Task<CardModel?> Fabricate(ICombatState combatState, PlayerChoiceContext choiceContext, Player creator, Player recipient, DynamicVar? upgraded = null)
     {
         CardModel? card = CardFactory.GetDistinctForCombat(
             recipient, 
@@ -36,7 +37,7 @@ public static class FabricateCmd
             CardCmd.ApplyKeyword(card, DrifterEnums.Fabricated);
             if (creator.Relics.Any(r => r is ModuleSet))
                 CardCmd.Enchant<Glam>(card, 1);
-            if (upgraded != null && upgraded.BoolVal) 
+            if (upgraded is FabricateVar { BoolVal: true }) 
                 CardCmd.Upgrade(card);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, creator);
             await DrifterHooks.AfterFabricate(combatState, choiceContext, creator, recipient, card);
@@ -50,5 +51,7 @@ public static class FabricateCmd
                     CombatManager.Instance.History, 
                     combatState.Players));
         }
+
+        return card;
     }
 }

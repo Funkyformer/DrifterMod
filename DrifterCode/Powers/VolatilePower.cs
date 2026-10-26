@@ -1,6 +1,9 @@
-﻿using Drifter.DrifterCode.Powers;
+﻿using Drifter.DrifterCode.Hooks;
+using Drifter.DrifterCode.Powers;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Drifter.DrifterCode.Powers;
 
@@ -12,5 +15,5 @@ public class VolatilePower() : DrifterPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
+    protected override  IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }
