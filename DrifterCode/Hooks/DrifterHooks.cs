@@ -37,14 +37,15 @@ public static class DrifterHooks
         return Dispatch<IAfterExplosiveRemoved>(combatState, choiceContext, model => model.AfterExplosiveRemoved(choiceContext, creature, power));
     }
 
-    public static Task AfterBarrageRepeat(
+    public static Task AfterModularRepeat(
         ICombatState combatState,
         PlayerChoiceContext choiceContext,
+        Player player,
         CardModel cardModel,
         int count)
     {
-        return Dispatch<IAfterBarrageRepeat>(combatState, choiceContext,
-            model => model.AfterBarrageRepeat(choiceContext, cardModel, count));
+        return Dispatch<IAfterModularRepeat>(combatState, choiceContext,
+            model => model.AfterModularRepeat(choiceContext, player, cardModel, count));
     }
 
     public static Task AfterFabricate(
@@ -65,6 +66,14 @@ public static class DrifterHooks
         WeaveEnum type)
     {
         return Dispatch<IAfterWeave>(combatState, choiceContext, model => model.AfterWeave(choiceContext, cardPlay, player, type));
+    }
+
+    public static Task AfterVolatileApplied(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        Creature applier)
+    {
+        return Dispatch<IAfterVolatileApplied>(combatState, choiceContext, model => model.AfterVolatileApplied(choiceContext, applier));
     }
 
 }

@@ -1,10 +1,10 @@
 {
-  "DRIFTER-ALTIES_SY_COM.description": "Start each combat with [img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img][img]res://Drifter/images/charui/ammo24.png[/img].",
+  "DRIFTER-ALTIES_SY_COM.description": "Gain {Charge:chargeIcon()} at the start of each turn.",
   "DRIFTER-ALTIES_SY_COM.flavor": "Altie's so cool",
-  "DRIFTER-ALTIES_SY_COM.title": "AltiesSyCom",
+  "DRIFTER-ALTIES_SY_COM.title": "Altie's Sprite",
   "DRIFTER-DRIFTERS_SY_COM.description": "Start each combat with {Charge:chargeIcon()}.",
   "DRIFTER-DRIFTERS_SY_COM.flavor": "Man I wish Breakers wasn't bad",
-  "DRIFTER-DRIFTERS_SY_COM.title": "Drifter's SyCom",
+  "DRIFTER-DRIFTERS_SY_COM.title": "Drifter's Sprite",
   "DRIFTER-GEARBIT_CRATE.description": "After every [blue]4th[/blue] floor, [gold]Upgrade[/gold] a random card in your [gold]Deck[/gold].",
   "DRIFTER-GEARBIT_CRATE.flavor": "Insert funny flavor text here",
   "DRIFTER-GEARBIT_CRATE.title": "Gearbit Crate",

@@ -18,6 +18,15 @@ public static class CardPlayExtensions
         return (weave == WeaveEnum.Blade && cardPlay.ValidBlade() && lastCard.ValidGun()) ||
                (weave == WeaveEnum.Gun && cardPlay.ValidGun() && lastCard.ValidBlade());
     }
+    public static bool IsWeave(this CardPlay cardPlay)
+    {
+        var history = CombatManager.Instance.History.CardPlaysFinished.Where(c =>
+            c.CardPlay.Player == cardPlay.Player && c.HappenedThisTurn(c.CardPlay.Card.CombatState));
+        if (history.Count() <= 1) return false;
+        var lastCard = history.SkipLast(1).Last().CardPlay;
+        return (cardPlay.ValidBlade() && lastCard.ValidGun()) ||
+               (cardPlay.ValidGun() && lastCard.ValidBlade());
+    }
 
     public static bool WillWeave(this CardPlay cardPlay, WeaveEnum weave)
     {

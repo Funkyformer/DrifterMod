@@ -8,17 +8,17 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Drifter.DrifterCode.Cards.Rares;
 
-public class Hotswap() : DrifterCard(1,
+public class Foundry() : DrifterCard(1,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new (nameof(Hotswap), 1), new FabricateVar(false)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new (nameof(Foundry), 1), new FabricateVar(false)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var hotswapPower = await PowerCmd.Apply<HotswapPower>(choiceContext, Owner.Creature, DynamicVars[nameof(Hotswap)].BaseValue, Owner.Creature, this);
+        var hotswapPower = await PowerCmd.Apply<Powers.FoundryPower>(choiceContext, Owner.Creature, DynamicVars[nameof(Foundry)].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

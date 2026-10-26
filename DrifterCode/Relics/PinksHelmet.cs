@@ -14,5 +14,5 @@ public class PinksHelmet() : DrifterRelic
     public override RelicRarity Rarity =>
         RelicRarity.Rare;
 
-    // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(DrifterEnums.ModularStatic)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(DrifterEnums.ModularStatic)];
 }

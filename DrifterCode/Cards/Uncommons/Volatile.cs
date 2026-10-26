@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Hooks;
 using Drifter.DrifterCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -21,6 +22,7 @@ public class Volatile() : DrifterCard(1,
         CardPlay play)
     {
         await PowerCmd.Apply<VolatilePower>(choiceContext, Owner.Creature, DynamicVars[nameof(VolatilePower)].BaseValue, Owner.Creature, this);
+        await DrifterHooks.AfterVolatileApplied(CombatState, choiceContext, Owner.Creature);
     }
 
     protected override void OnUpgrade()

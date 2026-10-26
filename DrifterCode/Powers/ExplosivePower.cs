@@ -1,8 +1,12 @@
-﻿using Drifter.DrifterCode.Cards.Commons;
+﻿using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
+using BaseLib.Extensions;
+using Drifter.DrifterCode.Cards.Commons;
 using Drifter.DrifterCode.Hooks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -11,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Powers;
 
-public class ExplosivePower() : DrifterPower
+public class ExplosivePower() : DrifterPower, IHasSecondAmount, IAfterVolatileApplied
 {
     public override PowerType Type =>
         PowerType.Debuff;
@@ -23,7 +27,11 @@ public class ExplosivePower() : DrifterPower
     
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Unpowered)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new ("DamageBase", 12),
+        new ("DamageExtra", 1),
+        new CustomCalculatedDamageVar("Damage", ValueProp.Unpowered).WithMultiplier((power, owner) => power.Applier.GetPowerAmount<VolatilePower>())
+    ];
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
@@ -54,7 +62,7 @@ public class ExplosivePower() : DrifterPower
     {
         IReadOnlyList<Creature> targets = _state.HittableEnemies;
         IEnumerable<DamageResult> damageResults =
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), targets, CalculateTotalDamage,
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), targets, CalculatedDamage,
                 ValueProp.Unpowered, Applier, null, null);
         if (oldOwner.IsAlive)
         {
@@ -62,5 +70,15 @@ public class ExplosivePower() : DrifterPower
         }
     }
 
-    private int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + (Applier?.GetPowerAmount<VolatilePower>() ?? 0);
+    private decimal CalculatedDamage => ((CustomCalculatedDamageVar)DynamicVars["Damage"]).CalculateCustom(null);
+
+    // private int CalculateTotalDamage => (int)DynamicVars.Damage.BaseValue + (Applier?.GetPowerAmount<VolatilePower>() ?? 0);
+    public string GetSecondAmount() => CalculatedDamage.ToString();
+
+    public Task AfterVolatileApplied(PlayerChoiceContext choiceContext, Creature applier)
+    {
+        if (applier == Applier)
+            this.InvokeSecondAmountChanged();
+        return Task.CompletedTask;
+    }
 }

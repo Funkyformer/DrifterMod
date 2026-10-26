@@ -28,8 +28,4 @@ public class DriftersSyCom() : DrifterRelic
         await CustomResources<ChargeResource>.Get(Owner.PlayerCombatState).Spend<ChargeResource>(combatState, this, -(int)DynamicVars[ChargeVar.Key].BaseValue, true);
     }
 
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        return Task.CompletedTask;
-    }
 }

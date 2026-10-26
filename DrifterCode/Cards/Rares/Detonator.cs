@@ -34,10 +34,5 @@ public class Detonator() : DrifterCard(1,
         await PowerCmd.Remove(powers.MinBy(p => p.Amount));
     }
 
-    protected override void OnUpgrade()
-    {
-
-    }
-
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }
