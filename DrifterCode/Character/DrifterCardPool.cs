@@ -6,6 +6,7 @@ namespace Drifter.DrifterCode.Character;
 
 public class DrifterCardPool : CustomCardPoolModel
 {
+    public override bool SeenByDefault => true;
     public override string Title => Drifter.CharacterId; //This is not a display name.
 
     public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();

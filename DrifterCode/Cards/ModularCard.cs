@@ -2,6 +2,7 @@
 using BaseLib.Cards.Variables;
 using Drifter.DrifterCode.Cards.Statuses;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Commands;
 using Drifter.DrifterCode.DynamicVars;
 using Drifter.DrifterCode.Hooks;
 using Drifter.DrifterCode.Relics;
@@ -60,6 +61,8 @@ public abstract class ModularCard : DrifterCard
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (DynamicVars.ContainsKey(JudgmentVar.Key))
+            await JudgmentCmd.Judgment(CombatState, choiceContext, this, DynamicVars[JudgmentVar.Key].BaseValue, Owner);
         var attackContext = _doesDamage ? await AttackCommand.CreateContextAsync(CombatState, choiceContext, cardPlay) : null;
         IEnumerable<DamageResult> damageResults = [];
         int numRepeats = (int)(CustomResources<ChargeResource>.Cost(this).ResolveXValue() /
@@ -70,7 +73,7 @@ public abstract class ModularCard : DrifterCard
         for (int i = 1; i <= numRepeats; i++)
         {
             await ModularEffect(choiceContext, cardPlay, i - 1, attackContext, damageResults);
-            if (i % DynamicVars[BarrageVar.Key].BaseValue == 0)
+            if (DynamicVars.ContainsKey(BarrageVar.Key) && i % DynamicVars[BarrageVar.Key].BaseValue == 0)
                 await BarrageEffect(choiceContext, cardPlay, i / DynamicVars[BarrageVar.Key].IntValue, attackContext, damageResults);
             await DrifterHooks.AfterModularRepeat(CombatState, choiceContext, Owner, this, i);
         }

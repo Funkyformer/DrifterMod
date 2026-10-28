@@ -1,4 +1,5 @@
 ﻿using Drifter.DrifterCode.Powers;
+using Drifter.DrifterCode.Powers.Varied;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 

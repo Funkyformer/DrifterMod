@@ -1,13 +1,4 @@
-﻿using BaseLib.Utils;
-using Drifter.DrifterCode.Character;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
-
-namespace Drifter.DrifterCode.Cards.Undecideds;
+﻿namespace Drifter.DrifterCode.Cards.NotUsing;
 
 // public class EquipShotgun() : DrifterCard(-1,
 //     CardType.Skill, CardRarity.Common,

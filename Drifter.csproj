@@ -69,7 +69,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="DrifterCode\Cards\Undecideds\" />
         <Folder Include="Drifter\images\powers\big\"/>
     </ItemGroup>
 
