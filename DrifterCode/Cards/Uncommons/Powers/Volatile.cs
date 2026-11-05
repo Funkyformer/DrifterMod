@@ -13,14 +13,13 @@ public class Volatile() : DrifterCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new (nameof(VolatilePower), 4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new (nameof(VolatilePower), 3)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await PowerCmd.Apply<VolatilePower>(choiceContext, Owner.Creature, DynamicVars[nameof(VolatilePower)].BaseValue, Owner.Creature, this);
-        await DrifterHooks.AfterVolatileApplied(CombatState, choiceContext, Owner.Creature);
     }
 
     protected override void OnUpgrade()

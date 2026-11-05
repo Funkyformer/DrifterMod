@@ -1,4 +1,5 @@
 ﻿using BaseLib.Abstracts;
+using BaseLib.Patches.UI;
 using BaseLib.Utils.NodeFactories;
 using Drifter.DrifterCode.Cards.Basics;
 using Drifter.DrifterCode.Cards.NotUsing;
@@ -63,6 +64,8 @@ public class Drifter : PlaceholderCharacterModel
     }
 
     public override string CustomIconTexturePath => "character_icon_drifter.png".CharacterUiPath();
+    public override string CustomIconOutlineTexturePath => "character_icon_drifter.png".CharacterUiPath();
+
     // public override string CustomVisualPath => "res://Drifter/scenes/creature_visuals/drifter_with_anims_redux.tscn";
     public override string CustomVisualPath => "res://Drifter/scenes/creature_visuals/drifter_anims.tscn";
     public override string CustomCharacterSelectIconPath => "char_select_drifter.png".CharacterUiPath();
@@ -70,21 +73,26 @@ public class Drifter : PlaceholderCharacterModel
     public override string CustomMapMarkerPath => "map_marker_drifter.png".CharacterUiPath();
     public override string CustomCharacterSelectBg => "res://Drifter/scenes/drifter_character_select.tscn";
 
+    public override RelicIconData CustomYummyCookie => new("yummy_cookie_drifter.png".BigRelicImagePath(),
+        "yummy_cookie_drifter.png".RelicImagePath(), "yummy_cookie_drifter_outline.png".RelicImagePath());
+
 
     // my own stuff below
     // public override NCreatureVisuals CreateCustomVisuals()
     // {
     //     return new DrifterNCreatureVisuals();
     // }
-    public override CreatureAnimator? SetupCustomAnimationStates(MegaSprite controller)
-    {
-        CreatureAnimator animator = new CreatureAnimator(new AnimState("Idle", isLooping: true), controller);
-        AddState(animator, "Idle");
-        AddState(animator, "Die");
-        AddState(animator, "Hurt");
-        AddState(animator, "SpecialGrenade");
-        return animator;
-    }
+    
+    // suddenly this is just no longer needed? I have no idea what changed
+    // public override CreatureAnimator? SetupCustomAnimationStates(MegaSprite controller)
+    // {
+    //     CreatureAnimator animator = new CreatureAnimator(new AnimState("Idle", isLooping: true), controller);
+    //     AddState(animator, "Idle");
+    //     AddState(animator, "Die");
+    //     AddState(animator, "Hurt");
+    //     AddState(animator, "SpecialGrenade");
+    //     return animator;
+    // }
 
     private void AddState(CreatureAnimator animator, String state)
     {

@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace Drifter.DrifterCode.Cards;
 
-public class DrifterEnums
+public static class DrifterEnums
 {
     [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)] public static CardKeyword Blade;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.After)] public static CardKeyword SemiAuto;

@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using Drifter.DrifterCode.Extensions;
 using Drifter.DrifterCode.Powers.Uncommons;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -54,7 +55,7 @@ public class SpecialGrenade() : DrifterCard(1,
                         if (instance != null)
                             instance.CombatVfxContainer.AddChildSafely(child2);
                 }
-            })).WithAttackerAnim(Owner.Character is Character.Drifter ? "SpecialGrenade" : "attack", 0.1f)
+            })).WithDrifterAnims("SpecialGrenade", 0.1f)
             .Execute(choiceContext);
         (await PowerCmd.Apply<SpecialGrenadePower>(choiceContext, Owner.Creature, DynamicVars[nameof(SpecialGrenade)].BaseValue, Owner.Creature, this)).SetSelectedCard(this);
         await CardCmd.Exhaust(choiceContext, this);

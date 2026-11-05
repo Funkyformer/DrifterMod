@@ -21,8 +21,10 @@ public class Detonator() : DrifterCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        if (!play.Target.IsAlive)
+            return;
         // var powers = play.Target.Powers.Where(p => p.Applier == Owner.Creature && p.);
-        var powers = play.Target.GetPowerInstances<ExplosivePower>();
+        var powers = play.Target.GetPowerInstances<ExplosivePower>().Where(p => p.Applier == Owner.Creature);
         if (IsUpgraded)
         {
             await PowerCmd.Remove(powers.MaxBy(p => p.Amount));

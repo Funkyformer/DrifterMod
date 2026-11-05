@@ -1,7 +1,4 @@
-﻿using BaseLib.Hooks;
-using Drifter.DrifterCode.Cards;
-using Drifter.DrifterCode.Character;
-using Drifter.DrifterCode.Powers;
+﻿using Drifter.DrifterCode.Cards;
 using Drifter.DrifterCode.Powers.Varied;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,8 +6,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Models.Relics;
 
 namespace Drifter.DrifterCode.Hooks;
 
@@ -32,10 +27,11 @@ public static class DrifterHooks
     public static Task AfterExplosiveRemoved(
         ICombatState combatState, 
         PlayerChoiceContext choiceContext, 
-        Creature creature, 
+        Creature applier,
+        Creature debuffed, 
         ExplosivePower power)
     {
-        return Dispatch<IAfterExplosiveRemoved>(combatState, choiceContext, model => model.AfterExplosiveRemoved(choiceContext, creature, power));
+        return Dispatch<IAfterExplosiveRemoved>(combatState, choiceContext, model => model.AfterExplosiveRemoved(choiceContext, applier, debuffed, power));
     }
 
     public static Task AfterModularRepeat(
@@ -69,12 +65,16 @@ public static class DrifterHooks
         return Dispatch<IAfterWeave>(combatState, choiceContext, model => model.AfterWeave(choiceContext, cardPlay, player, type));
     }
 
-    public static Task AfterVolatileApplied(
+    public static decimal ModifyExplosiveDamage(
         ICombatState combatState,
-        PlayerChoiceContext choiceContext,
+        Decimal damage,
         Creature applier)
     {
-        return Dispatch<IAfterVolatileApplied>(combatState, choiceContext, model => model.AfterVolatileApplied(choiceContext, applier));
+        var modDam = damage;
+        foreach (var listener in combatState.IterateHookListeners().OfType<IModifyExplosiveDamage>())
+        {
+            modDam += listener.ModifyExplosiveDamage(damage, applier);
+        }
+        return modDam;
     }
-
 }

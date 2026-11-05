@@ -1,5 +1,7 @@
 ﻿using BaseLib.Utils;
+using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.DynamicVars;
+using Drifter.DrifterCode.Extensions;
 using Drifter.DrifterCode.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -22,7 +24,7 @@ public class ChargedStrike() : DrifterCard(2,
         CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
-        await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        await CommonActions.CardAttack(this, play).WithDrifterAnims(DrifterAnimations.HeavyAttackHolder).Execute(choiceContext);
         await ChargeUtils.Gain(Owner, DynamicVars[ChargeVar.Key], this);
     }
 

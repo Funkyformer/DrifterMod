@@ -12,16 +12,17 @@ public class AltieForm() : DrifterCard(3,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AltieFormPower>(1)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         var power = await PowerCmd.Apply<AltieFormPower>(choiceContext, Owner.Creature, DynamicVars.Power<AltieFormPower>().BaseValue, Owner.Creature, this);
-        if (IsUpgraded)
-        {
-            power.IncreaseWeaveStr(DynamicVars.Power<AltieFormPower>().BaseValue);
-        }
     }
 
+    protected override void OnUpgrade()
+    {
+        RemoveKeyword(CardKeyword.Ethereal);
+    }
 }

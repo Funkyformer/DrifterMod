@@ -7,5 +7,5 @@ namespace Drifter.DrifterCode.Hooks;
 
 public interface IAfterExplosiveRemoved
 {
-    public Task AfterExplosiveRemoved(PlayerChoiceContext choiceContext, Creature creature, ExplosivePower explosivePower);
+    public Task AfterExplosiveRemoved(PlayerChoiceContext choiceContext, Creature applier, Creature debuffed, ExplosivePower explosivePower);
 }

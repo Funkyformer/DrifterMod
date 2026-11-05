@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
-namespace Drifter.DrifterCode.Cards.Commons.Attacks;
+namespace Drifter.DrifterCode.Cards.Commons.Skills;
 
 public class  StickyBomb() : DrifterCard(1,
     CardType.Skill, CardRarity.Common,

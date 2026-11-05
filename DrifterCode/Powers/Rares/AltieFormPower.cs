@@ -1,14 +1,19 @@
-﻿using Drifter.DrifterCode.Extensions;
+﻿using BaseLib.Abstracts;
+using BaseLib.Extensions;
+using Drifter.DrifterCode.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Drifter.DrifterCode.Powers.Rares;
 
-public class AltieFormPower() : DrifterPower
+public class AltieFormPower() : DrifterPower, IHasSecondAmount
 {
     public override PowerType Type =>
         PowerType.Buff;
@@ -16,7 +21,7 @@ public class AltieFormPower() : DrifterPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new("WeaveStr", 0)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new("StrGranted", 0)];
 
     protected override object InitInternalData() => new Data();
 
@@ -31,16 +36,22 @@ public class AltieFormPower() : DrifterPower
     {
         if (cardPlay.Card.Owner != Owner.Player || !GetInternalData<Data>().amountsForPlayedCards.Remove(cardPlay.Card, out var amt))
             return;
-        // amt *= _amount;
-        if (cardPlay.IsWeave()) amt += (int)DynamicVars["WeaveStr"].BaseValue;
-        await PowerCmd.Apply<AltieFormTemporaryStrengthPower>(choiceContext, Owner, amt, Owner, null);
+        Flash();
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, amt, Owner, null, true);
+        DynamicVars["StrGranted"].BaseValue += amt;
+        this.InvokeSecondAmountChanged();
     }
 
-    public void IncreaseWeaveStr(decimal amt)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        DynamicVars["WeaveStr"].BaseValue += amt;
+        if (!participants.Contains(Owner))
+            return;
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -DynamicVars["StrGranted"].BaseValue, Owner, null,
+            true);
+        DynamicVars["StrGranted"].BaseValue = 0;
+        this.InvokeSecondAmountChanged();
     }
-    
+
     public class Data
     {
         /// <summary>
@@ -50,4 +61,7 @@ public class AltieFormPower() : DrifterPower
         /// </summary>
         public readonly Dictionary<CardModel, int> amountsForPlayedCards = new ();
     }
+
+    // public string GetSecondAmount() => (DynamicVars["StrGranted"].BaseValue - (Amount - 1)).ToString();
+    public string GetSecondAmount() => DynamicVars["StrGranted"].BaseValue.ToString();
 }

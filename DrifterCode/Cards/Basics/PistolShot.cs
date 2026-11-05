@@ -3,6 +3,8 @@ using BaseLib.Utils;
 using Drifter.DrifterCode.Cards.Ancients;
 using Drifter.DrifterCode.Character;
 using Drifter.DrifterCode.Extensions;
+using Drifter.DrifterCode.Nodes.Vfx;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -33,7 +35,8 @@ public class PistolShot : DrifterCard, ITranscendenceCard
         CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
-        await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        await CommonActions.CardAttack(this, play).WithDrifterAnims(DrifterAnimations.PistolHolder)
+            .WithAttackerFx(() => NPistolShotVfx.Create(play.Target, Owner.Creature)).Execute(choiceContext);
         if (!play.WillWeave(WeaveEnum.Gun))
             return;
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);

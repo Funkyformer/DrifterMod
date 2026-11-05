@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Rares.Attacks;
 
-public class CrackEmOpen() : ModularCard(0,
+public class Jackhammer() : ModularCard(0,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy, 9)
 {

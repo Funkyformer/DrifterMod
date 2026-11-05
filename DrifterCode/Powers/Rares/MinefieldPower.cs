@@ -19,12 +19,12 @@ public class MinefieldPower() : DrifterPower, IAfterExplosiveRemoved
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new(nameof(MinefieldPower), 16)];
 
-    public async Task AfterExplosiveRemoved(PlayerChoiceContext choiceContext, Creature creature, ExplosivePower explosivePower)
+    public async Task AfterExplosiveRemoved(PlayerChoiceContext choiceContext, Creature applier, Creature debuffed, ExplosivePower explosivePower)
     {
-        if (explosivePower.Applier != Owner) 
+        if (applier != Owner) 
             return;
         for (int i = 0; i < Amount; i++)
-            await PowerCmd.Apply<ExplosivePower>(choiceContext, creature, DynamicVars[nameof(MinefieldPower)].BaseValue, explosivePower.Applier, null);
+            await PowerCmd.Apply<ExplosivePower>(choiceContext, debuffed, DynamicVars[nameof(MinefieldPower)].BaseValue, explosivePower.Applier, null);
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ExplosivePower>()];
 }

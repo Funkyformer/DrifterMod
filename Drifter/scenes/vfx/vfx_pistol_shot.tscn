@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1fpqq3c2bfow"]
+
+[ext_resource type="Script" uid="uid://bhu13ao64dg3n" path="res://DrifterCode/Nodes/Vfx/NPistolShotVfx.cs" id="1_2oq34"]
+[ext_resource type="Texture2D" uid="uid://bketgy8catcxu" path="res://Drifter/images/character/weapon effects/bullet_pistol.png" id="2_b1osj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vianu"]
+atlas = ExtResource("2_b1osj")
+region = Rect2(0, 0, 21, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1o5e"]
+atlas = ExtResource("2_b1osj")
+region = Rect2(21, 0, 21, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnvg3"]
+atlas = ExtResource("2_b1osj")
+region = Rect2(42, 0, 21, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7eyyv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vianu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1o5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnvg3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="PistolShotVfx" type="Node2D"]
+texture_filter = 1
+scale = Vector2(9, 9)
+script = ExtResource("1_2oq34")
+
+[node name="Bullet" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7eyyv")
+frame_progress = 0.85165393
