@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1fpqq3c2bfow"]
+[gd_scene load_steps=12 format=3 uid="uid://b1fpqq3c2bfow"]
 
 [ext_resource type="Script" uid="uid://bhu13ao64dg3n" path="res://DrifterCode/Nodes/Vfx/NPistolShotVfx.cs" id="1_2oq34"]
 [ext_resource type="Texture2D" uid="uid://bketgy8catcxu" path="res://Drifter/images/character/weapon effects/bullet_pistol.png" id="2_b1osj"]
+[ext_resource type="Texture2D" uid="uid://deurjsr5j53xd" path="res://Drifter/images/character/weapon effects/muzzle_pistol.png" id="3_vianu"]
+[ext_resource type="Texture2D" uid="uid://caag7caa84php" path="res://Drifter/images/character/weapon effects/blank.png" id="4_x1o5e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vianu"]
 atlas = ExtResource("2_b1osj")
@@ -32,11 +34,43 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eyyv"]
+atlas = ExtResource("3_vianu")
+region = Rect2(0, 0, 13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfqkl"]
+atlas = ExtResource("3_vianu")
+region = Rect2(13, 0, 13, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x5w37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eyyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfqkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_x1o5e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
 [node name="PistolShotVfx" type="Node2D"]
 texture_filter = 1
-scale = Vector2(9, 9)
+scale = Vector2(4, 4)
 script = ExtResource("1_2oq34")
 
 [node name="Bullet" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7, 0)
 sprite_frames = SubResource("SpriteFrames_7eyyv")
+autoplay = "default"
 frame_progress = 0.85165393
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.25, 2.25)
+sprite_frames = SubResource("SpriteFrames_x5w37")
+autoplay = "default"

@@ -1,6 +1,8 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Utils;
 using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.Extensions;
+using Drifter.DrifterCode.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -26,8 +28,8 @@ public class ShotgunBlast : DrifterCard
         CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
-        await CommonActions.CardAttack(this, play).Execute(choiceContext);
-        await Cmd.Wait(0.25f);
+        await CommonActions.CardAttack(this, play).WithDrifterAnims(DrifterAnimations.ShotgunPreHolder)
+            .WithDrifterVfx(() => NShotgunBlastVfx.Create(Owner.Creature), DrifterAnimations.ShotgunHolder).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
