@@ -1,4 +1,6 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Abstracts;
+using BaseLib.Utils;
+using Drifter.DrifterCode.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -9,10 +11,15 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Drifter.DrifterCode.Cards.Uncommons.Attacks;
 
-public class Prefire() : DrifterCard(0,
-    CardType.Attack, CardRarity.Uncommon,
-    TargetType.RandomEnemy)
+public class Prefire : DrifterCard
 {
+    public Prefire() : base(0,
+        CardType.Attack, CardRarity.Uncommon,
+        TargetType.RandomEnemy)
+    {
+        CustomResources<ChargeResource>.SetCanonicalCost(this, 7);
+    }
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15, ValueProp.Move)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
@@ -30,6 +37,7 @@ public class Prefire() : DrifterCard(0,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play).Execute(choiceContext);
+        await CardCmd.Exhaust(choiceContext, play.Card);
     }
 
     protected override void OnUpgrade()

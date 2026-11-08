@@ -15,7 +15,7 @@ namespace Drifter.DrifterCode.Cards.Ancients;
 
 public class ZeliskaSlug : DrifterCard
 {
-    public ZeliskaSlug() : base(1,
+    public ZeliskaSlug() : base(0,
         CardType.Attack, CardRarity.Ancient,
         TargetType.AnyEnemy)
     {

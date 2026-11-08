@@ -1,4 +1,5 @@
-﻿using Drifter.DrifterCode.DynamicVars;
+﻿using Drifter.DrifterCode.Character;
+using Drifter.DrifterCode.DynamicVars;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -24,9 +25,12 @@ public class FranticShots() : ModularCard(0,
         AttackContext? attackContext = null,
         IEnumerable<DamageResult>? damageResults = null)
     {
-        await CreatureCmd.TriggerAnim(Owner.Creature, "attack", 200);
         Creature enemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
-        damageResults = await CreatureCmd.Damage(new BlockingPlayerChoiceContext(), enemy, DynamicVars.Damage,
+        if (enemy is null)
+            return;
+        await DrifterAnimations.PlayAnimations(Owner.Creature, DrifterAnimations.PistolPreHolder,
+            DrifterAnimations.PistolHolder, DrifterAnimations.PistolVfx(enemy, Owner));
+        damageResults = await CreatureCmd.Damage(choiceContext, enemy, DynamicVars.Damage,
             Owner.Creature, this, play);
         attackContext.AddHit(damageResults);
     }

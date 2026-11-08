@@ -1,4 +1,6 @@
 {
+  "DRIFTER-DEBUG.description": "",
+  "DRIFTER-DEBUG.title": "Debug",
   "DRIFTER-AFTERSHOCK.description": "At the end of your turn, apply {ExplosivePower:diff()} [gold]Explosive[/gold] to a random enemy.",
   "DRIFTER-AFTERSHOCK.title": "Aftershock",
   "DRIFTER-ALTIE_FORM.description": "Whenever you play a card, gain {AltieFormPower:diff()} [gold]Strength[/gold] this turn.",

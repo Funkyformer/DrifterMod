@@ -36,7 +36,7 @@ public class PistolShot : DrifterCard, ITranscendenceCard
     {
         ArgumentNullException.ThrowIfNull(play.Target);
         await CommonActions.CardAttack(this, play).WithDrifterAnims(DrifterAnimations.PistolPreHolder)
-            .WithDrifterVfx(() => NPistolShotVfx.Create(play.Target, Owner.Creature), DrifterAnimations.PistolHolder).Execute(choiceContext);
+            .WithDrifterVfx(DrifterAnimations.PistolVfx(play.Target, Owner), DrifterAnimations.PistolHolder).Execute(choiceContext);
         if (!play.WillWeave(WeaveEnum.Gun))
             return;
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);

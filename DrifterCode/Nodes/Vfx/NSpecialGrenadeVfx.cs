@@ -35,7 +35,7 @@ public partial class NSpecialGrenadeVfx : Node2D
 	private async Task DeleteAfterComplete()
 	{	
 		_cts = new CancellationTokenSource();
-		await Task.Delay(500, _cts.Token);
+		await Task.Delay(250, _cts.Token);
 		this.QueueFreeSafely();
 	}
 }

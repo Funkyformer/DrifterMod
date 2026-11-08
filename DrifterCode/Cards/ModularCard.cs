@@ -22,7 +22,6 @@ public abstract class ModularCard : DrifterCard
     private readonly int _barrage;
     private readonly bool _doesDamage;
 
-
     protected ModularCard(int cost, CardType type, CardRarity rarity, TargetType target, int modular, int barrage = 0, bool doesDamage = true) : base(cost, type, rarity, target)
     {
         _modular = modular;
@@ -41,7 +40,6 @@ public abstract class ModularCard : DrifterCard
         new CustomCalculatedVar("Hits").WithMultiplier((Func<CardModel, Creature, Decimal>)
             ((card, target) => CustomResources<ChargeResource>.Get(card.Owner.PlayerCombatState).Amount / card.DynamicVars[ModularVar.Key].IntValue)),
         ..BonusVars];
-    
 
     private IEnumerable<DynamicVar> GetBarrageVar()
     {
@@ -57,7 +55,6 @@ public abstract class ModularCard : DrifterCard
     {
         return Task.CompletedTask;
     }
-
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

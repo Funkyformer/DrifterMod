@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://6ftdy8yf03e4"]
 
 [ext_resource type="Script" uid="uid://83u00l4bsvcl" path="res://DrifterCode/Nodes/Vfx/NSpecialGrenadeVfx.cs" id="1_g0f2a"]
-[ext_resource type="Texture2D" uid="uid://cpd57jbnbxvff" path="res://Drifter/images/vfx/bomb_anim.png" id="2_p5l5g"]
+[ext_resource type="Texture2D" uid="uid://cpd57jbnbxvff" path="res://Drifter/scenes/vfx/bomb_anim.png" id="2_p5l5g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh2sm"]
 atlas = ExtResource("2_p5l5g")
@@ -113,7 +113,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 30.0
+"speed": 60.0
 }]
 
 [node name="BombAnimVfx" type="Node2D"]

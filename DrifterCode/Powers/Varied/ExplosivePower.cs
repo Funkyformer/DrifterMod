@@ -1,5 +1,4 @@
 ﻿using BaseLib.Abstracts;
-using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using Drifter.DrifterCode.Cards.Commons.Attacks;
 using Drifter.DrifterCode.Hooks;
@@ -21,6 +20,7 @@ namespace Drifter.DrifterCode.Powers.Varied;
 
 public class ExplosivePower() : DrifterPower, IHasSecondAmount
 {
+
     public override PowerType Type =>
         PowerType.Debuff;
 
@@ -28,6 +28,7 @@ public class ExplosivePower() : DrifterPower, IHasSecondAmount
         PowerStackType.Counter;
 
     private ICombatState _state;
+    private Creature? _oldApplier;
 
     private Vector2 _position;
     
@@ -41,6 +42,7 @@ public class ExplosivePower() : DrifterPower, IHasSecondAmount
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
         Applier = applier;
+        _oldApplier = applier;
         _state = Owner.CombatState;
         _position = NCombatRoom.Instance.GetCreatureNode(Owner).VfxSpawnPosition;
         return Task.CompletedTask;
@@ -68,11 +70,17 @@ public class ExplosivePower() : DrifterPower, IHasSecondAmount
     {
         IReadOnlyList<Creature> targets = _state.HittableEnemies;
         var boom = NSpecialGrenadeVfx.Create(_position);
-        NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(boom);
+        NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(boom);
         IEnumerable<DamageResult> damageResults =
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), targets, DrifterHooks.ModifyExplosiveDamage(CombatState, DynamicVars.Damage.BaseValue, Applier),
-                ValueProp.Unpowered, Applier, null, null);
-            await DrifterHooks.AfterExplosiveRemoved(_state, new ThrowingPlayerChoiceContext(), Applier, Owner, this);
+            await CreatureCmd.Damage(
+                new ThrowingPlayerChoiceContext(),
+                targets,
+                DrifterHooks.ModifyExplosiveDamage(_state, DynamicVars.Damage.BaseValue, Applier!),
+                ValueProp.Unpowered,
+                Applier,
+                null,
+                null);
+        await DrifterHooks.AfterExplosiveRemoved(_state, new ThrowingPlayerChoiceContext(), Applier!, Owner, this);
     }
 
     public string GetSecondAmount() => DynamicVars["Display"].ToString();
